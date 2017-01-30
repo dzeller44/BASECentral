@@ -1,0 +1,437 @@
+@(intakeForm: Form[Application.IntakeAdd], lookups: java.util.List[Lookup], users: java.util.List[User], intake: Intake, user: User, auditTrail: java.util.List[IntakeAudit])
+
+@import java.text.SimpleDateFormat
+
+@main(null) {
+	<script type="text/javascript">
+		$(document).ready(function() {
+		
+		});
+	</script>
+	<section id="profileMain">
+		<form class="formoid-solid-dark"
+			style="background-color: #FFFFFF; font-size: 14px; font-family: 'Trebuchet MS','Roboto', Arial, Helvetica, sans-serif; color: #34495E; max-width: 1200px; min-width: 150px"
+			method="post" action="">
+			<div class="title">
+				<h2>Intake Request</h2>
+			</div>
+			<div class="container">
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="formSubtitle">
+							Project Info
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="formSubtitle">
+							BA Info
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="formSubtitle">
+							SE Info
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-input">
+							<label class="title"><span class="required">*</span>Project ID:</label>
+							<div class="item-cont">
+								<input class="large" type="text" name="projectid" required="required"
+									placeholder="Enter Project ID..." value="@intake.projectid" /><span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>BA Manager:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="bamanager" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select Manager ---</option>
+											@for(user <- users) {
+												@if(user.rolename == "BA Manager") {<option @if(user.fullname == intake.bamanager) {selected="selected"} value="@user.fullname">@user.fullname</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>SE Manager:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="semanager" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select Manager ---</option>
+											@for(user <- users) {
+												@if(user.rolename == "SE Manager") {<option @if(user.fullname == intake.semanager) {selected="selected"} value="@user.fullname">@user.fullname</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-input">
+							<label class="title"><span class="required">*</span>Project Name:</label>
+							<div class="item-cont">
+								<input class="large" type="text" name="projectname" required="required"
+									placeholder="Enter Project Name..." value="@intake.projectname" /><span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>BA Assigned Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="baassigneddate" required="required" placeholder="Date" value="@if(intake.baassigneddate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.baassigneddate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>SE Assigned Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="seassigneddate" required="required" placeholder="Date" value="@if(intake.seassigneddate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.seassigneddate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>Project Status:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="projectstatus" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select status ---</option>
+											@for(lookup <- lookups) {
+												@if(lookup.lookuptype == "Project Status") {<option @if(lookup.name == intake.projectstatus) {selected="selected"} value="@lookup.name">@lookup.name</option>}
+											}	
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>BA Assigned:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="baassigned" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select BA ---</option>
+											@for(user <- users) {
+												@if(user.rolename == "BA") {<option @if(user.fullname == intake.baassigned) {selected="selected"}>@user.fullname</option>}
+											}	
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>SE Assigned:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="seassigned" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select SE ---</option>
+											@for(user <- users) {
+												@if(user.rolename == "SE") {<option @if(user.fullname == intake.seassigned) {selected="selected"}>@user.fullname</option>}
+											}	
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>Requesting Agency:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="agency" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select Agency ---</option>
+											@for(lookup <- lookups) {
+												@if(lookup.lookuptype == "Agency") {<option @if(lookup.name == intake.agency) {selected="selected"} value="@lookup.name">@lookup.name</option>}
+											}	
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>BA Deliverable:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="badeliverable" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select Deliverable ---</option>
+											@for(lookup <- lookups) {
+													@if(lookup.lookuptype == "BA Deliverable") {<option @if(lookup.name == intake.badeliverable) {selected="selected"}>@lookup.name</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>SE Deliverable:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+									<select name="sedeliverable" required="required">
+									@for(lookup <- lookups) {
+										@if(lookup.lookuptype == "SE Deliverable") {<option @if(lookup.name == intake.sedeliverable) {selected="selected"}>@lookup.name</option>}
+									}
+									</select>
+									<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-input">
+							<label class="title"><span class="required">*</span>Request Summary:</label>
+							<div class="item-cont">
+								<input class="large" type="text" name="summary" required="required"
+									placeholder="Enter Request Summary..." value="@intake.summary" /><span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>BA Task Status:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="bataskstatus" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select Status ---</option>
+											@for(lookup <- lookups) {
+												@if(lookup.lookuptype == "BA Task Status") {<option @if(lookup.name == intake.bataskstatus) {selected="selected"}>@lookup.name</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>SE Task Status:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="setaskstatus" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select Status ---</option>
+											@for(lookup <- lookups) {
+												@if(lookup.lookuptype == "SE Task Status") {<option @if(lookup.name == intake.bataskstatus) {selected="selected"}>@lookup.name</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-input">
+							<label class="title"><span class="required">*</span>Requestor:</label>
+							<div class="item-cont">
+								<input class="large" type="text" name="requestor" required="required"
+									placeholder="Enter Requestor..." value="@intake.requestor" /><span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-number">
+							<label class="title"><span class="required">*</span>BA % Time (Estimate)</label>
+							<div class="item-cont">
+								<input class="large" type="text" min="0" max="500" name="batimeestimate" required="required" placeholder="Number" value="@intake.batimeestimate" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-number">
+							<label class="title"><span class="required">*</span>SE % Time (Estimate)</label>
+							<div class="item-cont">
+								<input class="large" type="text" min="0" max="500" name="setimeestimate" required="required" placeholder="Number" value="@intake.setimeestimate" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>Request Status:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="requeststatus" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select status ---</option>
+											@for(lookup <- lookups) {
+												@if(lookup.lookuptype == "Request Status") {<option @if(lookup.name == intake.requeststatus) {selected="selected"} value="@lookup.name">@lookup.name</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>BA Deliverable Target Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="batargetdate" required="required" placeholder="Date" value="@if(intake.batargetdate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.batargetdate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>SE Deliverable Target Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="setargetdate" required="required" placeholder="Date" value="@if(intake.setargetdate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.setargetdate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>Date Requested:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-MM-dd" type="date" name="daterequested" required="required" placeholder="Date" value="@if(intake.daterequested != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.daterequested))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>BA Deliverable Completion Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="bacompletiondate" required="required" placeholder="Date" value="@if(intake.bacompletiondate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.bacompletiondate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>SE Deliverable Completion Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="secompletiondate" required="required" placeholder="Date" value="@if(intake.secompletiondate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.secompletiondate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>How Requested:</label>
+							<div class="item-cont">
+								<div class="large">
+									<span>
+										<select name="howrequested" required="required">
+											<option selected="selected" value="" disabled="disabled">--- Select How Requested ---</option>
+											@for(lookup <- lookups) {
+												@if(lookup.lookuptype == "Intake Type") {<option @if(lookup.name == intake.howrequested) {selected="selected"} value="@lookup.name">@lookup.name</option>}
+											}
+										</select>
+										<i></i><span class="icon-place"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-date">
+							<label class="title"><span class="required">*</span>Initial Customer Meeting Date:</label>
+							<div class="item-cont">
+								<input class="large" data-format="yyyy-mm-dd" type="date" name="initialmeetdate" required="required" placeholder="Date" value="@if(intake.initialmeetdate != null){@(new SimpleDateFormat("yyyy-MM-dd").format(intake.initialmeetdate))}" />
+								<span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom: 16px">
+					<div class="col-sm-4">
+						<div class="element-select">
+							<label class="title"><span class="required">*</span>Initial Customer Meeting Comments:</label>
+							<div class="item-cont">
+								<input class="large" type="text" name="initialmeetcomments" required="required"
+									placeholder="Enter Comments..."  value=@intake.initialmeetcomments /><span class="icon-place"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Container --> 
+			<div class="element-input">
+				@if(intakeForm.hasGlobalErrors) {
+				<span class="errorMessageDisplay" style="color: #d9534f;">@intakeForm.globalError.message</span>
+				}
+			</div>
+			<div class="submit">
+				<input type="submit" value="Submit" />
+				<a href="/" class="buttonCancel">@Messages("goback")</a>
+			</div>
+			@if(user.getRolename().contains("Manager")) {
+			<div class="submit">
+				<a href="javascript:deleteIntake('@intake.intakekey')" class="buttonDelete" style="color: #FFFFFF;">Delete</a>
+			</div>
+			}
+			<div class="modifiedSection">
+				<table class="modifiedTable">
+					@for(audit <- auditTrail) {
+					<tr>
+						<td>@audit.editor (@audit.editoremail) changed <b>@audit.fielddisplay</b> from <b>@audit.oldvalue</b> to <b>@audit.newvalue</b> on @audit.editdate.</td>
+					</tr>
+					}					
+				</table>
+			</div>
+			<!-- This is needed for bottom shadow to appear... -->
+			<div></div>
+		</form>
+	</section>
+}

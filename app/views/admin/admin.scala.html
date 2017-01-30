@@ -1,0 +1,50 @@
+@(loginForm: Form[Application.Login])
+
+@main(null) {
+
+
+<!-- ABOUT -->
+<section id="adminMain">
+
+	<!-- SERVICES -->
+	<div class="services_block padbot40" data-appear-top-offset="-200">
+
+		<!-- CONTAINER -->
+		<div class="container">
+
+			<!-- ROW -->
+			<div class="row">
+				<div class="col-sm-3 margbot30">
+					<a class="services_item" href="/searchprojects">
+						<p>
+							<img src="@routes.Assets.at("/img/icon_Search_Records.png")"> <b>Projects</b>
+						</p> <span>Add/Edit/Delete/Search Projects...</span>
+					</a>
+				</div>
+				<div class="col-sm-3 margbot30">
+					<a class="services_item" href="/adminuser">
+						<p>
+							<img src="@routes.Assets.at("/img/icon_User_Maint.png")"> <b>User Maintenance</b>
+						</p> <span>Add/Edit/Delete User Records...</span>
+					</a>
+				</div>
+				<div class="col-sm-4 margbot30">
+					<a class="services_item" href="/tablemaint">
+						<p>
+							<img src="@routes.Assets.at("/img/icon_Export_Data.png")"> <b>Lookup/Table Maintenance</b>
+						</p> <span>Add/Edit Lookup Records...</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- //ROW -->
+	</div>
+	<!-- //CONTAINER -->
+	</div>
+	<!-- //SERVICES -->
+
+
+</section>
+<!-- //ABOUT -->
+
+}

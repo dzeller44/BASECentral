@@ -1,0 +1,9 @@
+Email link for authentication:
+http://localhost:9000/confirm/[confirm token from User table]
+
+EX: http://localhost:9000/confirm/f83ba6cb-0234-4668-95d6-506a49d981fa
+
+Email link for reset password
+http://localhost:9000/reset/[token from Token table]
+
+EX: http://localhost:9000/reset/769cb08e-ca8b-4872-a4f0-05ae0c3e1989
