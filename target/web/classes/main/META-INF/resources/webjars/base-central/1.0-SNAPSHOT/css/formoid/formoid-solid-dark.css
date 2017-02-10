@@ -1363,12 +1363,12 @@ bootstrap
 }
 
 .selectDropdownField .large{
-  width: 25%;
+  width: 100%;
   *width: 23%;
 }
 
 .selectDropdownField .medium{
-  width: 60%;
+  width: 80%;
   *width: 58%;
 }
 

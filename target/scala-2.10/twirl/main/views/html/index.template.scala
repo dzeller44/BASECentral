@@ -65,7 +65,7 @@ Seq[Any](format.raw/*1.78*/("""
 object index extends index_Scope0.index
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:32 MST 2017
+                  DATE: Fri Feb 10 14:19:19 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/index.scala.html
                   HASH: 73546bc1672d4cd51ee8785c5b5e31ba28272985
                   MATRIX: 789->1|960->77|988->80|1006->90|1045->92|1076->97

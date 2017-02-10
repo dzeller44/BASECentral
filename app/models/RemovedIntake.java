@@ -31,6 +31,7 @@ public class RemovedIntake extends Model {
 	public String projectname;
 
 	@Constraints.Required
+	@Constraints.MaxLength(2500)
 	public String summary;
 	
 	@Constraints.Required

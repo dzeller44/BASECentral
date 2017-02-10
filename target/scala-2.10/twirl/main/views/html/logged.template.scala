@@ -63,7 +63,7 @@ Seq[Any](format.raw/*1.14*/("""
 object logged extends logged_Scope0.logged
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:32 MST 2017
+                  DATE: Fri Feb 10 14:19:19 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/logged.scala.html
                   HASH: 05a36fb7ff260941a3922f86f22c0b6a772057f0
                   MATRIX: 745->1|852->13|880->16|904->32|943->34|974->39|1171->209|1184->213|1214->222|1243->223|1364->318|1383->329|1441->367|1500->399|1541->419|1650->501|1665->507|1707->528|1769->563|1809->581|1892->634

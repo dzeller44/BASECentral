@@ -82,7 +82,7 @@ Seq[Any](format.raw/*1.18*/("""
 object deleteintakeconfirm extends deleteintakeconfirm_Scope0.deleteintakeconfirm
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:33 MST 2017
+                  DATE: Fri Feb 10 14:19:20 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/intake/deleteintakeconfirm.scala.html
                   HASH: dcf6f01cafc39df00448462971fa9b21a504c82e
                   MATRIX: 780->1|891->17|921->22|939->32|978->34|1008->38|1631->634|1646->640|1677->650|1706->651|1891->809|1906->815|1937->825|2185->1046|2224->1064|2370->1180

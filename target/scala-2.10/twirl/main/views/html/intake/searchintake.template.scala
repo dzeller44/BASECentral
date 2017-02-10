@@ -27,38 +27,39 @@ class searchintake extends BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendabl
   def apply/*1.2*/(intakeList: java.util.List[Intake], lookups: java.util.List[Lookup], users: java.util.List[User], user: User):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
-
+import java.text.SimpleDateFormat
 
 Seq[Any](format.raw/*1.112*/("""
 
-"""),_display_(/*3.2*/main(null)/*3.12*/ {_display_(Seq[Any](format.raw/*3.14*/("""
-	"""),format.raw/*4.2*/("""<script src=""""),_display_(/*4.16*/routes/*4.22*/.Assets.at("js/jquery/jquery-latest.js")),format.raw/*4.62*/("""" type="text/javascript"></script>
-	<script src=""""),_display_(/*5.16*/routes/*5.22*/.Assets.at("js/jquery/jquery.tablesorter.js")),format.raw/*5.67*/("""" type="text/javascript"></script>
-	<link href=""""),_display_(/*6.15*/routes/*6.21*/.Assets.at("css/tablesort.css")),format.raw/*6.52*/("""" rel="stylesheet" type="text/css" />
+"""),format.raw/*4.1*/("""
+"""),_display_(/*5.2*/main(null)/*5.12*/ {_display_(Seq[Any](format.raw/*5.14*/("""
+	"""),format.raw/*6.2*/("""<script src=""""),_display_(/*6.16*/routes/*6.22*/.Assets.at("js/jquery/jquery-latest.js")),format.raw/*6.62*/("""" type="text/javascript"></script>
+	<script src=""""),_display_(/*7.16*/routes/*7.22*/.Assets.at("js/jquery/jquery.tablesorter.js")),format.raw/*7.67*/("""" type="text/javascript"></script>
+	<link href=""""),_display_(/*8.15*/routes/*8.21*/.Assets.at("css/tablesort.css")),format.raw/*8.52*/("""" rel="stylesheet" type="text/css" />
 	<script type="text/javascript">
-		$(document).ready(function() """),format.raw/*8.32*/("""{"""),format.raw/*8.33*/("""
-			"""),format.raw/*9.4*/("""$("#tableAll").tablesorter();
-			$(".selectFirstField").change(function() """),format.raw/*10.45*/("""{"""),format.raw/*10.46*/("""
-				"""),format.raw/*11.5*/("""filterSearch("selectFirstField", "reqstatus")
-			"""),format.raw/*12.4*/("""}"""),format.raw/*12.5*/(""");
-			$(".selectSecondField").change(function() """),format.raw/*13.46*/("""{"""),format.raw/*13.47*/("""
-				"""),format.raw/*14.5*/("""filterSearch("selectSecondField", "agency")
-			"""),format.raw/*15.4*/("""}"""),format.raw/*15.5*/(""");
-			$(".selectThirdField").change(function() """),format.raw/*16.45*/("""{"""),format.raw/*16.46*/("""
-				"""),format.raw/*17.5*/("""filterSearch("selectThirdField", "ba")
-			"""),format.raw/*18.4*/("""}"""),format.raw/*18.5*/(""");
-			$(".selectFourthField").change(function() """),format.raw/*19.46*/("""{"""),format.raw/*19.47*/("""
-				"""),format.raw/*20.5*/("""filterSearch("selectFourthField", "se")
-			"""),format.raw/*21.4*/("""}"""),format.raw/*21.5*/(""");
-		"""),format.raw/*22.3*/("""}"""),format.raw/*22.4*/(""");
+		$(document).ready(function() """),format.raw/*10.32*/("""{"""),format.raw/*10.33*/("""
+			"""),format.raw/*11.4*/("""$("#tableAll").tablesorter();
+			$(".selectFirstField").change(function() """),format.raw/*12.45*/("""{"""),format.raw/*12.46*/("""
+				"""),format.raw/*13.5*/("""filterSearch("selectFirstField", "reqstatus")
+			"""),format.raw/*14.4*/("""}"""),format.raw/*14.5*/(""");
+			$(".selectSecondField").change(function() """),format.raw/*15.46*/("""{"""),format.raw/*15.47*/("""
+				"""),format.raw/*16.5*/("""filterSearch("selectSecondField", "agency")
+			"""),format.raw/*17.4*/("""}"""),format.raw/*17.5*/(""");
+			$(".selectThirdField").change(function() """),format.raw/*18.45*/("""{"""),format.raw/*18.46*/("""
+				"""),format.raw/*19.5*/("""filterSearch("selectThirdField", "ba")
+			"""),format.raw/*20.4*/("""}"""),format.raw/*20.5*/(""");
+			$(".selectFourthField").change(function() """),format.raw/*21.46*/("""{"""),format.raw/*21.47*/("""
+				"""),format.raw/*22.5*/("""filterSearch("selectFourthField", "se")
+			"""),format.raw/*23.4*/("""}"""),format.raw/*23.5*/(""");
+		"""),format.raw/*24.3*/("""}"""),format.raw/*24.4*/(""");
 	</script>
 	<section id="displayResults" style="padding: 30px;">
 		<div class="table-responsive">
 			<h5>All Projects:</h5>
-			"""),_display_(/*27.5*/if(user.getRolename().contains("Manager"))/*27.47*/ {_display_(Seq[Any](format.raw/*27.49*/("""
-				"""),format.raw/*28.5*/("""<a href="/addintake" class="buttonCustomView" style="color: #FFFFFF;">Add New Project</a>
-  			""")))}),format.raw/*29.7*/("""
-			"""),format.raw/*30.4*/("""<div class="container">
+			"""),_display_(/*29.5*/if(user.role.getValue() >= 3)/*29.34*/ {_display_(Seq[Any](format.raw/*29.36*/("""
+				"""),format.raw/*30.5*/("""<a href="/addintake" class="buttonCustomView" style="color: #FFFFFF;">Add New Project</a>
+  			""")))}),format.raw/*31.7*/("""
+			"""),format.raw/*32.4*/("""<div class="container">
   				<div class="row" style="margin: auto;">
 					<div class="col-sm-3">
 						<div class="element-select">
@@ -66,12 +67,12 @@ Seq[Any](format.raw/*1.112*/("""
 								<div class="medium">
 									<span>
 										<select class="selectFirstField" name="selectFirstField" id="selectFirstField">
-											<option selected="selected" value="" disabled="disabled">--- Filter By Request Status ---</option>
+											<option selected="selected" value="" disabled="disabled">--- Filter By Req Status ---</option>
 											<option value="All">All</option>
-											"""),_display_(/*40.13*/for(lookup <- lookups) yield /*40.35*/ {_display_(Seq[Any](format.raw/*40.37*/("""
-												"""),_display_(/*41.14*/if(lookup.lookuptype == "Request Status")/*41.55*/ {_display_(Seq[Any](format.raw/*41.57*/("""<option value=""""),_display_(/*41.73*/lookup/*41.79*/.name),format.raw/*41.84*/("""">"""),_display_(/*41.87*/lookup/*41.93*/.name),format.raw/*41.98*/("""</option>""")))}),format.raw/*41.108*/("""
-											""")))}),format.raw/*42.13*/("""	
-										"""),format.raw/*43.11*/("""</select>
+											"""),_display_(/*42.13*/for(lookup <- lookups) yield /*42.35*/ {_display_(Seq[Any](format.raw/*42.37*/("""
+												"""),_display_(/*43.14*/if(lookup.lookuptype == "Request Status")/*43.55*/ {_display_(Seq[Any](format.raw/*43.57*/("""<option value=""""),_display_(/*43.73*/lookup/*43.79*/.name),format.raw/*43.84*/("""">"""),_display_(/*43.87*/lookup/*43.93*/.name),format.raw/*43.98*/("""</option>""")))}),format.raw/*43.108*/("""
+											""")))}),format.raw/*44.13*/("""	
+										"""),format.raw/*45.11*/("""</select>
 										<i></i><span class="iconPlacement"></span>
 									</span>
 								</div>
@@ -86,10 +87,10 @@ Seq[Any](format.raw/*1.112*/("""
 										<select class="selectSecondField" name="selectSecondField" id="selectSecondField">
 											<option selected="selected" value="" disabled="disabled">--- Filter By Agency ---</option>
 											<option value="All">All</option>
-											"""),_display_(/*58.13*/for(lookup <- lookups) yield /*58.35*/ {_display_(Seq[Any](format.raw/*58.37*/("""
-												"""),_display_(/*59.14*/if(lookup.lookuptype == "Agency")/*59.47*/ {_display_(Seq[Any](format.raw/*59.49*/("""<option value=""""),_display_(/*59.65*/lookup/*59.71*/.name),format.raw/*59.76*/("""">"""),_display_(/*59.79*/lookup/*59.85*/.name),format.raw/*59.90*/("""</option>""")))}),format.raw/*59.100*/("""
-											""")))}),format.raw/*60.13*/("""	
-										"""),format.raw/*61.11*/("""</select>
+											"""),_display_(/*60.13*/for(lookup <- lookups) yield /*60.35*/ {_display_(Seq[Any](format.raw/*60.37*/("""
+												"""),_display_(/*61.14*/if(lookup.lookuptype == "Agency")/*61.47*/ {_display_(Seq[Any](format.raw/*61.49*/("""<option value=""""),_display_(/*61.65*/lookup/*61.71*/.name),format.raw/*61.76*/("""">"""),_display_(/*61.79*/lookup/*61.85*/.name),format.raw/*61.90*/("""</option>""")))}),format.raw/*61.100*/("""
+											""")))}),format.raw/*62.13*/("""	
+										"""),format.raw/*63.11*/("""</select>
 										<i></i><span class="iconPlacement"></span>
 									</span>
 								</div>
@@ -104,10 +105,10 @@ Seq[Any](format.raw/*1.112*/("""
 										<select class="selectThirdField" name="selectThirdField" id="selectThirdField">
 											<option selected="selected" value="" disabled="disabled">--- Filter By BA ---</option>
 											<option value="All">All</option>
-											"""),_display_(/*76.13*/for(people <- users) yield /*76.33*/ {_display_(Seq[Any](format.raw/*76.35*/("""
-												"""),_display_(/*77.14*/if(people.role.toString() == "1")/*77.47*/ {_display_(Seq[Any](format.raw/*77.49*/("""<option value=""""),_display_(/*77.65*/people/*77.71*/.fullname),format.raw/*77.80*/("""">"""),_display_(/*77.83*/people/*77.89*/.fullname),format.raw/*77.98*/("""</option>""")))}),format.raw/*77.108*/("""
-											""")))}),format.raw/*78.13*/("""	
-										"""),format.raw/*79.11*/("""</select>
+											"""),_display_(/*78.13*/for(people <- users) yield /*78.33*/ {_display_(Seq[Any](format.raw/*78.35*/("""
+												"""),_display_(/*79.14*/if(people.role.toString() == "1")/*79.47*/ {_display_(Seq[Any](format.raw/*79.49*/("""<option value=""""),_display_(/*79.65*/people/*79.71*/.fullname),format.raw/*79.80*/("""">"""),_display_(/*79.83*/people/*79.89*/.fullname),format.raw/*79.98*/("""</option>""")))}),format.raw/*79.108*/("""
+											""")))}),format.raw/*80.13*/("""	
+										"""),format.raw/*81.11*/("""</select>
 										<i></i><span class="iconPlacement"></span>
 									</span>
 								</div>
@@ -122,10 +123,10 @@ Seq[Any](format.raw/*1.112*/("""
 										<select class="selectFourthField" name="selectFourthField" id="selectFourthField">
 											<option selected="selected" value="" disabled="disabled">--- Filter By SE ---</option>
 											<option value="All">All</option>
-											"""),_display_(/*94.13*/for(people <- users) yield /*94.33*/ {_display_(Seq[Any](format.raw/*94.35*/("""
-												"""),_display_(/*95.14*/if(people.role.toString() == "2")/*95.47*/ {_display_(Seq[Any](format.raw/*95.49*/("""<option value=""""),_display_(/*95.65*/people/*95.71*/.fullname),format.raw/*95.80*/("""">"""),_display_(/*95.83*/people/*95.89*/.fullname),format.raw/*95.98*/("""</option>""")))}),format.raw/*95.108*/("""
-											""")))}),format.raw/*96.13*/("""	
-										"""),format.raw/*97.11*/("""</select>
+											"""),_display_(/*96.13*/for(people <- users) yield /*96.33*/ {_display_(Seq[Any](format.raw/*96.35*/("""
+												"""),_display_(/*97.14*/if(people.role.toString() == "2")/*97.47*/ {_display_(Seq[Any](format.raw/*97.49*/("""<option value=""""),_display_(/*97.65*/people/*97.71*/.fullname),format.raw/*97.80*/("""">"""),_display_(/*97.83*/people/*97.89*/.fullname),format.raw/*97.98*/("""</option>""")))}),format.raw/*97.108*/("""
+											""")))}),format.raw/*98.13*/("""	
+										"""),format.raw/*99.11*/("""</select>
 										<i></i><span class="iconPlacement"></span>
 									</span>
 								</div>
@@ -140,23 +141,25 @@ Seq[Any](format.raw/*1.112*/("""
 						<th>Project ID</th>
 						<th>Project Name</th>
 						<th>Agency</th>
+						<th>Date Requested</th>
 						<th>Request Status</th>
 						<th>BA</th>
 						<th>SE</th>
 					</tr>
 				</thead>
 				<tbody>
-					"""),_display_(/*118.7*/for(intake <- intakeList) yield /*118.32*/ {_display_(Seq[Any](format.raw/*118.34*/("""
-					"""),format.raw/*119.6*/("""<tr>
-						<td><a href="/openintake/"""),_display_(/*120.33*/intake/*120.39*/.intakekey),format.raw/*120.49*/("""">"""),_display_(/*120.52*/intake/*120.58*/.projectid),format.raw/*120.68*/("""</a></td>
-						<td><a href="/openintake/"""),_display_(/*121.33*/intake/*121.39*/.intakekey),format.raw/*121.49*/("""">"""),_display_(/*121.52*/intake/*121.58*/.projectname),format.raw/*121.70*/("""</a></td>
-						<td><a href="/openintake/"""),_display_(/*122.33*/intake/*122.39*/.intakekey),format.raw/*122.49*/("""">"""),_display_(/*122.52*/intake/*122.58*/.agency),format.raw/*122.65*/("""</a></td>
-						<td><a href="/openintake/"""),_display_(/*123.33*/intake/*123.39*/.intakekey),format.raw/*123.49*/("""">"""),_display_(/*123.52*/intake/*123.58*/.requeststatus),format.raw/*123.72*/("""</a></td>
-						<td><a href="/openintake/"""),_display_(/*124.33*/intake/*124.39*/.intakekey),format.raw/*124.49*/("""">"""),_display_(/*124.52*/intake/*124.58*/.baassigned),format.raw/*124.69*/("""</a></td>
-						<td><a href="/openintake/"""),_display_(/*125.33*/intake/*125.39*/.intakekey),format.raw/*125.49*/("""">"""),_display_(/*125.52*/intake/*125.58*/.seassigned),format.raw/*125.69*/("""</a></td>
+					"""),_display_(/*121.7*/for(intake <- intakeList) yield /*121.32*/ {_display_(Seq[Any](format.raw/*121.34*/("""
+					"""),format.raw/*122.6*/("""<tr>
+						<td><a href="/openintake/"""),_display_(/*123.33*/intake/*123.39*/.intakekey),format.raw/*123.49*/("""">"""),_display_(/*123.52*/intake/*123.58*/.projectid),format.raw/*123.68*/("""</a></td>
+						<td><a href="/openintake/"""),_display_(/*124.33*/intake/*124.39*/.intakekey),format.raw/*124.49*/("""">"""),_display_(/*124.52*/intake/*124.58*/.projectname),format.raw/*124.70*/("""</a></td>
+						<td><a href="/openintake/"""),_display_(/*125.33*/intake/*125.39*/.intakekey),format.raw/*125.49*/("""">"""),_display_(/*125.52*/intake/*125.58*/.agency),format.raw/*125.65*/("""</a></td>
+						<td><a href="/openintake/"""),_display_(/*126.33*/intake/*126.39*/.intakekey),format.raw/*126.49*/("""">"""),_display_(/*126.52*/if(intake.daterequested != null)/*126.84*/{_display_(_display_(/*126.86*/(new SimpleDateFormat("yyyy-MM-dd").format(intake.daterequested))))}),format.raw/*126.152*/("""</a></td>
+						<td><a href="/openintake/"""),_display_(/*127.33*/intake/*127.39*/.intakekey),format.raw/*127.49*/("""">"""),_display_(/*127.52*/intake/*127.58*/.requeststatus),format.raw/*127.72*/("""</a></td>
+						<td><a href="/openintake/"""),_display_(/*128.33*/intake/*128.39*/.intakekey),format.raw/*128.49*/("""">"""),_display_(/*128.52*/intake/*128.58*/.baassigned),format.raw/*128.69*/("""</a></td>
+						<td><a href="/openintake/"""),_display_(/*129.33*/intake/*129.39*/.intakekey),format.raw/*129.49*/("""">"""),_display_(/*129.52*/intake/*129.58*/.seassigned),format.raw/*129.69*/("""</a></td>
 					</tr>
-					""")))}),format.raw/*127.7*/(""" 
-				"""),format.raw/*128.5*/("""</tbody>
+					""")))}),format.raw/*131.7*/(""" 
+				"""),format.raw/*132.5*/("""</tbody>
 			</table>
 		</div>
 		<div><a href="/exportintake/All" class="buttonCustomView" style="color: #FFFFFF;">Export This View</a></div>
@@ -181,11 +184,11 @@ Seq[Any](format.raw/*1.112*/("""
 object searchintake extends searchintake_Scope0.searchintake
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:34 MST 2017
+                  DATE: Fri Feb 10 14:19:21 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/intake/searchintake.scala.html
-                  HASH: 06d9f8a238c9a9a38869b073244a7de018faf16f
-                  MATRIX: 831->1|1037->111|1067->116|1085->126|1124->128|1153->131|1193->145|1207->151|1267->191|1344->242|1358->248|1423->293|1499->343|1513->349|1564->380|1695->484|1723->485|1754->490|1857->565|1886->566|1919->572|1996->622|2024->623|2101->672|2130->673|2163->679|2238->727|2266->728|2342->776|2371->777|2404->783|2474->826|2502->827|2579->876|2608->877|2641->883|2712->927|2740->928|2773->934|2801->935|2963->1071|3014->1113|3054->1115|3087->1121|3214->1218|3246->1223|3758->1708|3796->1730|3836->1732|3878->1747|3928->1788|3968->1790|4011->1806|4026->1812|4052->1817|4082->1820|4097->1826|4123->1831|4165->1841|4210->1855|4251->1868|4827->2417|4865->2439|4905->2441|4947->2456|4989->2489|5029->2491|5072->2507|5087->2513|5113->2518|5143->2521|5158->2527|5184->2532|5226->2542|5271->2556|5312->2569|5881->3111|5917->3131|5957->3133|5999->3148|6041->3181|6081->3183|6124->3199|6139->3205|6169->3214|6199->3217|6214->3223|6244->3232|6286->3242|6331->3256|6372->3269|6944->3814|6980->3834|7020->3836|7062->3851|7104->3884|7144->3886|7187->3902|7202->3908|7232->3917|7262->3920|7277->3926|7307->3935|7349->3945|7394->3959|7435->3972|7932->4442|7974->4467|8015->4469|8050->4476|8116->4514|8132->4520|8164->4530|8195->4533|8211->4539|8243->4549|8314->4592|8330->4598|8362->4608|8393->4611|8409->4617|8443->4629|8514->4672|8530->4678|8562->4688|8593->4691|8609->4697|8638->4704|8709->4747|8725->4753|8757->4763|8788->4766|8804->4772|8840->4786|8911->4829|8927->4835|8959->4845|8990->4848|9006->4854|9039->4865|9110->4908|9126->4914|9158->4924|9189->4927|9205->4933|9238->4944|9298->4973|9333->4980
-                  LINES: 27->1|32->1|34->3|34->3|34->3|35->4|35->4|35->4|35->4|36->5|36->5|36->5|37->6|37->6|37->6|39->8|39->8|40->9|41->10|41->10|42->11|43->12|43->12|44->13|44->13|45->14|46->15|46->15|47->16|47->16|48->17|49->18|49->18|50->19|50->19|51->20|52->21|52->21|53->22|53->22|58->27|58->27|58->27|59->28|60->29|61->30|71->40|71->40|71->40|72->41|72->41|72->41|72->41|72->41|72->41|72->41|72->41|72->41|72->41|73->42|74->43|89->58|89->58|89->58|90->59|90->59|90->59|90->59|90->59|90->59|90->59|90->59|90->59|90->59|91->60|92->61|107->76|107->76|107->76|108->77|108->77|108->77|108->77|108->77|108->77|108->77|108->77|108->77|108->77|109->78|110->79|125->94|125->94|125->94|126->95|126->95|126->95|126->95|126->95|126->95|126->95|126->95|126->95|126->95|127->96|128->97|149->118|149->118|149->118|150->119|151->120|151->120|151->120|151->120|151->120|151->120|152->121|152->121|152->121|152->121|152->121|152->121|153->122|153->122|153->122|153->122|153->122|153->122|154->123|154->123|154->123|154->123|154->123|154->123|155->124|155->124|155->124|155->124|155->124|155->124|156->125|156->125|156->125|156->125|156->125|156->125|158->127|159->128
+                  HASH: 7cb65ca8b65d25416aa90fa89b119b077b4b1a49
+                  MATRIX: 831->1|1070->111|1100->151|1128->154|1146->164|1185->166|1214->169|1254->183|1268->189|1328->229|1405->280|1419->286|1484->331|1560->381|1574->387|1625->418|1757->522|1786->523|1818->528|1921->603|1950->604|1983->610|2060->660|2088->661|2165->710|2194->711|2227->717|2302->765|2330->766|2406->814|2435->815|2468->821|2538->864|2566->865|2643->914|2672->915|2705->921|2776->965|2804->966|2837->972|2865->973|3027->1109|3065->1138|3105->1140|3138->1146|3265->1243|3297->1248|3805->1729|3843->1751|3883->1753|3925->1768|3975->1809|4015->1811|4058->1827|4073->1833|4099->1838|4129->1841|4144->1847|4170->1852|4212->1862|4257->1876|4298->1889|4874->2438|4912->2460|4952->2462|4994->2477|5036->2510|5076->2512|5119->2528|5134->2534|5160->2539|5190->2542|5205->2548|5231->2553|5273->2563|5318->2577|5359->2590|5928->3132|5964->3152|6004->3154|6046->3169|6088->3202|6128->3204|6171->3220|6186->3226|6216->3235|6246->3238|6261->3244|6291->3253|6333->3263|6378->3277|6419->3290|6991->3835|7027->3855|7067->3857|7109->3872|7151->3905|7191->3907|7234->3923|7249->3929|7279->3938|7309->3941|7324->3947|7354->3956|7396->3966|7441->3980|7482->3993|8010->4494|8052->4519|8093->4521|8128->4528|8194->4566|8210->4572|8242->4582|8273->4585|8289->4591|8321->4601|8392->4644|8408->4650|8440->4660|8471->4663|8487->4669|8521->4681|8592->4724|8608->4730|8640->4740|8671->4743|8687->4749|8716->4756|8787->4799|8803->4805|8835->4815|8866->4818|8908->4850|8939->4852|9030->4918|9101->4961|9117->4967|9149->4977|9180->4980|9196->4986|9232->5000|9303->5043|9319->5049|9351->5059|9382->5062|9398->5068|9431->5079|9502->5122|9518->5128|9550->5138|9581->5141|9597->5147|9630->5158|9690->5187|9725->5194
+                  LINES: 27->1|32->1|34->4|35->5|35->5|35->5|36->6|36->6|36->6|36->6|37->7|37->7|37->7|38->8|38->8|38->8|40->10|40->10|41->11|42->12|42->12|43->13|44->14|44->14|45->15|45->15|46->16|47->17|47->17|48->18|48->18|49->19|50->20|50->20|51->21|51->21|52->22|53->23|53->23|54->24|54->24|59->29|59->29|59->29|60->30|61->31|62->32|72->42|72->42|72->42|73->43|73->43|73->43|73->43|73->43|73->43|73->43|73->43|73->43|73->43|74->44|75->45|90->60|90->60|90->60|91->61|91->61|91->61|91->61|91->61|91->61|91->61|91->61|91->61|91->61|92->62|93->63|108->78|108->78|108->78|109->79|109->79|109->79|109->79|109->79|109->79|109->79|109->79|109->79|109->79|110->80|111->81|126->96|126->96|126->96|127->97|127->97|127->97|127->97|127->97|127->97|127->97|127->97|127->97|127->97|128->98|129->99|151->121|151->121|151->121|152->122|153->123|153->123|153->123|153->123|153->123|153->123|154->124|154->124|154->124|154->124|154->124|154->124|155->125|155->125|155->125|155->125|155->125|155->125|156->126|156->126|156->126|156->126|156->126|156->126|156->126|157->127|157->127|157->127|157->127|157->127|157->127|158->128|158->128|158->128|158->128|158->128|158->128|159->129|159->129|159->129|159->129|159->129|159->129|161->131|162->132
                   -- GENERATED --
               */
           

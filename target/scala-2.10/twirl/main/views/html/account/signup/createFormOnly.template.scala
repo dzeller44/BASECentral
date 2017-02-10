@@ -85,7 +85,7 @@ Seq[Any](format.raw/*1.42*/("""
 object createFormOnly extends createFormOnly_Scope0.createFormOnly
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:33 MST 2017
+                  DATE: Fri Feb 10 14:19:20 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/account/signup/createFormOnly.scala.html
                   HASH: 8294e781bfba48c1898ee063ccd02dbcac73716e
                   MATRIX: 798->1|940->65|972->89|1068->41|1096->60|1126->155|1154->157|1184->162|1226->184|1260->192|1315->238|1355->240|1388->246|1435->266|1622->432|1659->442|1852->614|1889->624|2091->805|2123->810|2255->915|2301->940|2346->955

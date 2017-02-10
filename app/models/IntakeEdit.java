@@ -24,32 +24,24 @@ public class IntakeEdit extends Model {
 	@Id
 	public Long id;
 	
-	@Constraints.Required
 	public String editkey;
 
-	@Constraints.Required
 	public String projectid;
 	
-	@Constraints.Required
 	public String projectname;
 
-	@Constraints.Required
+	@Constraints.MaxLength(2500)
 	public String summary;
 	
-	@Constraints.Required
 	public String projectstatus;
 
-	@Constraints.Required
 	public String agency;
 
-	@Constraints.Required
 	public String requestor;
 	
-	@Constraints.Required
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date daterequested;
 	
-	@Constraints.Required
 	public String howrequested;
 	
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
@@ -57,35 +49,25 @@ public class IntakeEdit extends Model {
 
 	public String initialmeetcomments;
 	
-	@Constraints.Required
 	public String requeststatus;
 		
-	@Constraints.Required
 	public String bamanager;
 	
-	@Constraints.Required
 	public String bamanageremail;
 	
-	@Constraints.Required
 	public String bamanagerkey;
 	
-	@Constraints.Required
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date baassigneddate;
 	
-	@Constraints.Required
 	public String baassigned;
 	
-	@Constraints.Required
 	public String baassignedemail;
 	
-	@Constraints.Required
 	public String baassignedkey;
 	
-	@Constraints.Required
 	public String badeliverable;
 	
-	@Constraints.Required
 	public String bataskstatus;
 	
 	public Integer batimeestimate;
@@ -96,32 +78,23 @@ public class IntakeEdit extends Model {
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date bacompletiondate;
 	
-	@Constraints.Required
 	public String semanager;
 	
-	@Constraints.Required
 	public String semanageremail;
 	
-	@Constraints.Required
 	public String semanagerkey;
 	
-	@Constraints.Required
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date seassigneddate;
 	
-	@Constraints.Required
 	public String seassigned;
 	
-	@Constraints.Required
 	public String seassignedemail;
 	
-	@Constraints.Required
 	public String seassignedkey;
 	
-	@Constraints.Required
 	public String sedeliverable;
 	
-	@Constraints.Required
 	public String setaskstatus;
 	
 	public Integer setimeestimate;
@@ -132,11 +105,9 @@ public class IntakeEdit extends Model {
 	@Formats.DateTime(pattern = "yyyy-MM-dd")
 	public Date secompletiondate;
 
-	@Constraints.Required
 	@Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date datecreated;
 	
-	@Constraints.Required
 	public String intakekey;
 	
 	public String userkey;

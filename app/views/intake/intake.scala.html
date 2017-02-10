@@ -59,20 +59,20 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-input">
-										<label class="title"><span class="required">*</span>Project ID:</label>
+										<label class="title"><span></span>Project ID:</label>
 										<div class="item-cont">
-											<input class="large" type="text" name="projectid" required="required"
+											<input class="large" type="text" name="projectid"
 												placeholder="Enter Project ID..." /><span class="icon-place"></span>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>Project Status:</label>
+										<label class="title"><span></span>Project Status:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="projectstatus" required="required">
+													<select name="projectstatus">
 														<option selected="selected" value="" disabled="disabled">--- Select status ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "Project Status") {
@@ -90,20 +90,20 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-input">
-										<label class="title"><span class="required">*</span>Project Name:</label>
+										<label class="title"><span></span>Project Name:</label>
 										<div class="item-cont">
-											<input class="large" type="text" name="projectname" required="required"
+											<input class="large" type="text" name="projectname"
 												placeholder="Enter Project Name..." /><span class="icon-place"></span>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>Requesting Agency:</label>
+										<label class="title"><span></span>Requesting Agency:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="agency" required="required">
+													<select name="agency">
 														<option selected="selected" value="" disabled="disabled">--- Select Agency ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "Agency") {
@@ -121,10 +121,10 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-12">
 									<div class="element-input">
-										<label class="title"><span class="required">*</span>Request Summary:</label>
+										<label class="title"><span></span>Request Summary:</label>
 										<div class="item-cont">
-											<input class="large" type="text" name="summary" required="required"
-												placeholder="Enter Request Summary..." /><span class="icon-place"></span>
+											<textarea class="medium" type="text" name="summary" required="required" placeholder="Enter Request Summary..." /></textarea>
+											<span class="icon-place"></span>
 										</div>
 									</div>
 								</div>
@@ -132,20 +132,20 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-input">
-										<label class="title"><span class="required">*</span>Requestor:</label>
+										<label class="title"><span></span>Requestor:</label>
 										<div class="item-cont">
-											<input class="large" type="text" name="requestor" required="required"
+											<input class="large" type="text" name="requestor"
 												placeholder="Enter Requestor..." /><span class="icon-place"></span>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>Request Status:</label>
+										<label class="title"><span></span>Request Status:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="requeststatus" required="required">
+													<select name="requeststatus">
 														<option selected="selected" value="" disabled="disabled">--- Select status ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "Request Status") {
@@ -172,11 +172,11 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>How Requested:</label>
+										<label class="title"><span></span>How Requested:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="howrequested" required="required">
+													<select name="howrequested">
 														<option selected="selected" value="" disabled="disabled">--- Select How Requested ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "Intake Type") {
@@ -196,11 +196,11 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>BA Manager:</label>
+										<label class="title"><span></span>BA Manager:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="bamanager" required="required">
+													<select name="bamanager">
 														<option selected="selected" value="" disabled="disabled">--- Select Manager ---</option>
 														@for(user <- users) {
 															@if(user.rolename == "BA Manager") {
@@ -227,11 +227,11 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>BA Assigned:</label>
+										<label class="title"><span></span>BA Assigned:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="baassigned" required="required">
+													<select name="baassigned">
 														<option selected="selected" value="" disabled="disabled">--- Select BA ---</option>
 														@for(user <- users) {
 															@if(user.rolename == "BA") {
@@ -247,11 +247,11 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>BA Deliverable:</label>
+										<label class="title"><span></span>BA Deliverable:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="badeliverable" required="required">
+													<select name="badeliverable">
 														<option selected="selected" value="" disabled="disabled">--- Select Deliverable ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "BA Deliverable") {
@@ -269,11 +269,11 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>BA Task Status:</label>
+										<label class="title"><span></span>BA Task Status:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="bataskstatus" required="required">
+													<select name="bataskstatus">
 														<option selected="selected" value="" disabled="disabled">--- Select Status ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "BA Task Status") {
@@ -342,11 +342,11 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>SE Manager:</label>
+										<label class="title"><span></span>SE Manager:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="semanager" required="required">
+													<select name="semanager">
 														<option selected="selected" value="" disabled="disabled">--- Select Manager ---</option>
 														@for(user <- users) {
 															@if(user.rolename == "SE Manager") {
@@ -373,11 +373,11 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>SE Assigned:</label>
+										<label class="title"><span></span>SE Assigned:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="seassigned" required="required">
+													<select name="seassigned">
 														<option selected="selected" value="" disabled="disabled">--- Select SE ---</option>
 														@for(user <- users) {
 															@if(user.rolename == "SE") {
@@ -393,11 +393,11 @@
 								</div>
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>SE Deliverable:</label>
+										<label class="title"><span></span>SE Deliverable:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="sedeliverable" required="required">
+													<select name="sedeliverable">
 														<option selected="selected" value="" disabled="disabled">--- Select Deliverable ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "SE Deliverable") {
@@ -415,11 +415,11 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span class="required">*</span>SE Task Status:</label>
+										<label class="title"><span></span>SE Task Status:</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
-													<select name="setaskstatus" required="required">
+													<select name="setaskstatus">
 														<option selected="selected" value="" disabled="disabled">--- Select Status ---</option>
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "SE Task Status") {
@@ -467,10 +467,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- End Container --> 
 			<div class="element-input">
 				@if(intakeForm.hasGlobalErrors) {
-				<span class="errorMessageDisplay" style="color: #d9534f;">@intakeForm.globalError.message</span>
+					<span class="errorMessageDisplay" style="color: #d9534f;">@intakeForm.globalError.message</span>
 				}
 			</div>
 			<div class="submit">

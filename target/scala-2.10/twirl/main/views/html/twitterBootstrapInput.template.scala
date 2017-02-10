@@ -59,7 +59,7 @@ Seq[Any](format.raw/*1.34*/("""
 object twitterBootstrapInput extends twitterBootstrapInput_Scope0.twitterBootstrapInput
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:32 MST 2017
+                  DATE: Fri Feb 10 14:19:19 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/twitterBootstrapInput.scala.html
                   HASH: fd7acefa8416986502a99805f451d3ad454a23fe
                   MATRIX: 791->1|918->33|946->96|973->97|1023->121|1053->143|1092->145|1128->151|1174->171|1190->179|1213->182|1242->185|1258->193|1284->199|1323->213|1339->221|1365->227|1396->232|1446->256|1462->264|1503->285|1539->295|1570->317|1610->319|1646->328|1697->352|1714->360|1757->382|1797->392|1825->393

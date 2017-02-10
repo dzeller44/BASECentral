@@ -56,27 +56,28 @@ Seq[Any](format.raw/*1.38*/("""
 						required="required" placeholder="Enter your password..." /><span
 						class="icon-place"></span>
 				</div>
+				<div>Password must be 8 characters, contain 1 UPPERCASE character, 1 lowercase character, 1 number, and 1 special character (.*[!&#64#$!%^&+=]).</div>
 			</div>
 			<div class="element-input">
-			    """),_display_(/*31.9*/if(loginForm.hasGlobalErrors)/*31.38*/ {_display_(Seq[Any](format.raw/*31.40*/("""
-	        		"""),format.raw/*32.12*/("""<span class="errorMessageDisplay" style="color: #d9534f;">
-	            		"""),_display_(/*33.17*/loginForm/*33.26*/.globalError.message),format.raw/*33.46*/("""
-	        		"""),format.raw/*34.12*/("""</span>
-	   			""")))}),format.raw/*35.9*/("""
-			"""),format.raw/*36.4*/("""</div>
+			    """),_display_(/*32.9*/if(loginForm.hasGlobalErrors)/*32.38*/ {_display_(Seq[Any](format.raw/*32.40*/("""
+	        		"""),format.raw/*33.12*/("""<span class="errorMessageDisplay" style="color: #d9534f;">
+	            		"""),_display_(/*34.17*/loginForm/*34.26*/.globalError.message),format.raw/*34.46*/("""
+	        		"""),format.raw/*35.12*/("""</span>
+	   			""")))}),format.raw/*36.9*/("""
+			"""),format.raw/*37.4*/("""</div>
 			<div class="submit">
 				<input type="submit" value="Submit" />
-				<a href="/" class="buttonCancel">"""),_display_(/*39.39*/Messages("goback")),format.raw/*39.57*/("""</a>
+				<a href="/" class="buttonCancel">"""),_display_(/*40.39*/Messages("goback")),format.raw/*40.57*/("""</a>
 			</div>
 			<!-- This is needed for bottom shadow to appear... -->
 			<div></div>
 		</form>
 		<div class="loginBlock">
-			<a href="/signup"><div class="loginText">"""),_display_(/*45.46*/Messages("account.need")),format.raw/*45.70*/("""</div></a>
-			<a href="/reset/ask"><div class="loginText">"""),_display_(/*46.49*/Messages("forgot.password")),format.raw/*46.76*/("""</div></a>
+			<a href="/signup"><div class="loginText">"""),_display_(/*46.46*/Messages("account.need")),format.raw/*46.70*/("""</div></a>
+			<a href="/reset/ask"><div class="loginText">"""),_display_(/*47.49*/Messages("forgot.password")),format.raw/*47.76*/("""</div></a>
 		</div>
 	</section>
-""")))}),format.raw/*49.2*/("""
+""")))}),format.raw/*50.2*/("""
 """))
       }
     }
@@ -97,11 +98,11 @@ Seq[Any](format.raw/*1.38*/("""
 object auth extends auth_Scope0.auth
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:32 MST 2017
+                  DATE: Fri Feb 10 14:19:19 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/auth.scala.html
-                  HASH: fe42a1340ad33d1df1484eae99d7c98aa8e9d88b
-                  MATRIX: 760->1|898->60|930->84|1014->37|1045->138|1075->143|1093->153|1132->155|1161->158|2224->1195|2262->1224|2302->1226|2343->1239|2446->1315|2464->1324|2505->1344|2546->1357|2593->1374|2625->1379|2767->1494|2806->1512|3009->1688|3054->1712|3141->1772|3189->1799|3255->1835
-                  LINES: 27->1|31->4|31->4|32->1|34->4|36->6|36->6|36->6|37->7|61->31|61->31|61->31|62->32|63->33|63->33|63->33|64->34|65->35|66->36|69->39|69->39|75->45|75->45|76->46|76->46|79->49
+                  HASH: e672361f0a8f1ad94fb2722a28c3ebec1fe23a0d
+                  MATRIX: 760->1|898->60|930->84|1014->37|1045->138|1075->143|1093->153|1132->155|1161->158|2380->1351|2418->1380|2458->1382|2499->1395|2602->1471|2620->1480|2661->1500|2702->1513|2749->1530|2781->1535|2923->1650|2962->1668|3165->1844|3210->1868|3297->1928|3345->1955|3411->1991
+                  LINES: 27->1|31->4|31->4|32->1|34->4|36->6|36->6|36->6|37->7|62->32|62->32|62->32|63->33|64->34|64->34|64->34|65->35|66->36|67->37|70->40|70->40|76->46|76->46|77->47|77->47|80->50
                   -- GENERATED --
               */
           

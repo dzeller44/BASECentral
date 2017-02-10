@@ -69,7 +69,7 @@ Seq[Any](_display_(/*1.2*/main()/*1.8*/ {_display_(Seq[Any](format.raw/*1.10*/("
 object lookupupdated extends lookupupdated_Scope0.lookupupdated
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:33 MST 2017
+                  DATE: Fri Feb 10 14:19:20 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/admin/lookupupdated.scala.html
                   HASH: 40d5ac7f56f25fe6407fbd71f6c90749f69975b8
                   MATRIX: 849->1|862->7|901->9|932->14|1370->425|1417->451

@@ -17,7 +17,7 @@ public class AppGlobals {
      * @return
      */
     public static String getAssigmentTimer() {
-		return Play.application().configuration().getString("coassist.timer");
+		return Play.application().configuration().getString("schedule.timer");
     }
 	
 }

@@ -73,7 +73,7 @@ Seq[Any](format.raw/*1.19*/(""" """),_display_(/*1.21*/main()/*1.27*/ {_display_
 object badlogin extends badlogin_Scope0.badlogin
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:32 MST 2017
+                  DATE: Fri Feb 10 14:19:19 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/badlogin.scala.html
                   HASH: 7fde2a8777174da6cd930b486e8ef50b24ef6d33
                   MATRIX: 751->1|863->18|891->20|905->26|944->28|972->30|1422->453|1450->460|1551->534|1566->540|1605->558|1764->687

@@ -3197,3 +3197,7 @@ footer titleText {
     display: flex;
     align-items: center;
 }
+
+input[readonly] {
+    background-color: #e8e8e8;
+}

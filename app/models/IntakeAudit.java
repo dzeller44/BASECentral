@@ -50,9 +50,11 @@ public class IntakeAudit extends Model {
 	public String fielddisplay;
 	
 	@Constraints.Required
+	@Constraints.MaxLength(2500)
 	public String oldvalue;
 	
 	@Constraints.Required
+	@Constraints.MaxLength(2500)
 	public String newvalue;
 	
 	@Constraints.Required

@@ -98,7 +98,7 @@ Seq[Any](format.raw/*1.38*/("""
 object admin extends admin_Scope0.admin
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 30 10:30:33 MST 2017
+                  DATE: Fri Feb 10 14:19:20 MST 2017
                   SOURCE: C:/WebDev/workspace/BASECentral/app/views/admin/admin.scala.html
                   HASH: 94d2fb7580590cdf4ffce2c90126fa615ae51c4e
                   MATRIX: 768->1|899->37|927->40|945->50|984->52|1013->55|1374->389|1389->395|1452->437|1692->650|1707->656|1766->694|2012->913|2027->919|2087->958

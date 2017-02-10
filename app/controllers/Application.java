@@ -40,6 +40,7 @@ import models.utils.AppException;
 import models.utils.Mail;
 import play.Configuration;
 import play.Logger;
+import play.core.j.HttpExecutionContext;
 import play.data.Form;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
@@ -110,7 +111,7 @@ public class Application extends Controller {
 	public static Result ACCESS_DENIED = redirect(routes.Application.accessDenied());
 
 	public static final String delimiter = "~~";
-	
+
 	public static String openIntakeKey = "";
 
 	@Inject
@@ -153,58 +154,44 @@ public class Application extends Controller {
 
 	public static class IntakeAdd {
 
-		@Constraints.Required
 		public String projectid;
 
-		@Constraints.Required
 		public String projectname;
 
-		@Constraints.Required
 		public String summary;
 
-		@Constraints.Required
 		public String projectstatus;
 
-		@Constraints.Required
 		public String agency;
 
-		@Constraints.Required
 		public String requestor;
 
-		@Constraints.Required
 		public Date daterequested;
 
-		@Constraints.Required
 		public String howrequested;
 
 		public Date initialmeetdate;
 
 		public String initialmeetcomments;
 
-		@Constraints.Required
 		public String requeststatus;
 
-		@Constraints.Required
 		public String bamanager;
 
 		public String bamanageremail;
 
 		public String bamanagerkey;
 
-		@Constraints.Required
 		public Date baassigneddate;
 
-		@Constraints.Required
 		public String baassigned;
 
 		public String baassignedemail;
 
 		public String baassignedkey;
 
-		@Constraints.Required
 		public String badeliverable;
 
-		@Constraints.Required
 		public String bataskstatus;
 
 		public Integer batimeestimate;
@@ -213,27 +200,22 @@ public class Application extends Controller {
 
 		public Date bacompletiondate;
 
-		@Constraints.Required
 		public String semanager;
 
 		public String semanageremail;
 
 		public String semanagerkey;
 
-		@Constraints.Required
 		public Date seassigneddate;
 
-		@Constraints.Required
 		public String seassigned;
 
 		public String seassignedemail;
 
 		public String seassignedkey;
 
-		@Constraints.Required
 		public String sedeliverable;
 
-		@Constraints.Required
 		public String setaskstatus;
 
 		public Integer setimeestimate;
@@ -307,19 +289,21 @@ public class Application extends Controller {
 
 		@Constraints.Required
 		public String password;
-		
+
 		public String intakeKey;
 
-		/**
-		 * Validate the authentication.
-		 *
-		 * @return null if validation ok, string with details otherwise
-		 */
 		public String validate() {
 			Logger.debug("Login - validate()");
 			User user = null;
 			try {
 				user = User.authenticate(email, password);
+				if (user == null) {
+					errMessage = Messages.get("invalid.user.or.password");
+					return errMessage;
+				} else if (!user.validated) {
+					errMessage = Messages.get("account.not.validated.check.mail");
+					return errMessage;
+				}
 				SessionData createUserSession = AccessMiddleware.createUserSession(user);
 				AuditLog.setLog(user.fullname, user.getEmail(), "Login", "validate()", "User authenticated",
 						user.fullname);
@@ -327,16 +311,8 @@ public class Application extends Controller {
 				errMessage = Messages.get("error.technical");
 				return errMessage;
 			}
-			if (user == null) {
-				errMessage = Messages.get("invalid.user.or.password");
-				return errMessage;
-			} else if (!user.validated) {
-				errMessage = Messages.get("account.not.validated.check.mail");
-				return errMessage;
-			}
 			return null;
 		}
-
 	}
 
 	public static class Register {
@@ -437,9 +413,15 @@ public class Application extends Controller {
 	}
 
 	public Result addIntake() {
-		List<Lookup> lookups = Lookup.find.all();
-		List<User> users = User.find.all();
-		return ok(intake.render(form(IntakeAdd.class), lookups, users));
+		// Check Role...
+		if (hasCorrectAccess(RoleType.BAMANAGER) != true && hasCorrectAccess(RoleType.SEMANAGER) != true
+				&& hasCorrectAccess(RoleType.ADMIN) != true) {
+			return ACCESS_DENIED;
+		} else {
+			List<Lookup> lookups = Lookup.find.all();
+			List<User> users = User.find.all();
+			return ok(intake.render(form(IntakeAdd.class), lookups, users));
+		}
 	}
 
 	public Result addComments(String intakekey, String comments) {
@@ -1118,11 +1100,17 @@ public class Application extends Controller {
 		}
 	}
 
-	/**
-	 * Display the login page or dashboard if connected
-	 *
-	 * @return login page or dashboard
-	 */
+	public static boolean isArrayEmpty(List<String> currentArray) {
+		boolean isEmpty = true;
+		for (String name : currentArray) {
+			if (name != null) {
+				isEmpty = false;
+				return isEmpty;
+			}
+		}
+		return isEmpty;
+	}
+
 	public Result index() {
 		// Check that the email matches a confirmed user before we redirect
 		String email = ctx().session().get("email");
@@ -1251,16 +1239,19 @@ public class Application extends Controller {
 		emailArray.add(intake.baassignedemail);
 		emailArray.add(intake.seassignedemail);
 
-		// Are we in test email mode?
-		if (emailMode.equals("test")) {
-			subject = testPrefix + " " + subject;
-			message = testPrefix + "<br><br>" + message;
-		}
-		Mail.Envelop envelop = new Mail.Envelop(subject, message, emailArray);
-		Mail mailer = new Mail(mailerClient);
-		// Are we sending email?
-		if (emailState.equals("on")) {
-			mailer.sendMail(envelop);
+		// Let's make sure we have some addresses to send to...
+		if (isArrayEmpty(emailArray) != true) {
+			// Are we in test email mode?
+			if (emailMode.equals("test")) {
+				subject = testPrefix + " " + subject;
+				message = testPrefix + "<br><br>" + message;
+			}
+			Mail.Envelop envelop = new Mail.Envelop(subject, message, emailArray);
+			Mail mailer = new Mail(mailerClient);
+			// Are we sending email?
+			if (emailState.equals("on")) {
+				mailer.sendMail(envelop);
+			}
 		}
 	}
 
@@ -1492,29 +1483,37 @@ public class Application extends Controller {
 		intake.bacompletiondate = intakeForm.bacompletiondate;
 		intake.secompletiondate = intakeForm.secompletiondate;
 		// BA Manager...
-		intake.bamanager = intakeForm.bamanager;
-		user = user.findByFullname(intake.bamanager);
-		intake.bamanageremail = user.getEmail();
-		intake.bamanagerkey = user.getUserkey();
+		if (intakeForm.bamanager != null) {
+			intake.bamanager = intakeForm.bamanager;
+			user = user.findByFullname(intake.bamanager);
+			intake.bamanageremail = user.getEmail();
+			intake.bamanagerkey = user.getUserkey();
+		}
 		intake.baassigneddate = intakeForm.baassigneddate;
 		// BA...
-		intake.baassigned = intakeForm.baassigned;
-		user = user.findByFullname(intake.baassigned);
-		intake.baassignedemail = user.getEmail();
-		intake.baassignedkey = user.getUserkey();
-		intake.badeliverable = intakeForm.badeliverable;
+		if (intakeForm.baassigned != null) {
+			intake.baassigned = intakeForm.baassigned;
+			user = user.findByFullname(intake.baassigned);
+			intake.baassignedemail = user.getEmail();
+			intake.baassignedkey = user.getUserkey();
+			intake.badeliverable = intakeForm.badeliverable;
+		}
 		intake.batargetdate = intakeForm.batargetdate;
 		// SE Manager...
-		intake.semanager = intakeForm.semanager;
-		user = user.findByFullname(intake.semanager);
-		intake.semanageremail = user.getEmail();
-		intake.semanagerkey = user.getUserkey();
+		if (intakeForm.semanager != null) {
+			intake.semanager = intakeForm.semanager;
+			user = user.findByFullname(intake.semanager);
+			intake.semanageremail = user.getEmail();
+			intake.semanagerkey = user.getUserkey();
+		}
 		intake.seassigneddate = intakeForm.seassigneddate;
 		// SE...
-		intake.seassigned = intakeForm.seassigned;
-		user = user.findByFullname(intake.seassigned);
-		intake.seassignedemail = user.getEmail();
-		intake.seassignedkey = user.getUserkey();
+		if (intakeForm.seassigned != null) {
+			intake.seassigned = intakeForm.seassigned;
+			user = user.findByFullname(intake.seassigned);
+			intake.seassignedemail = user.getEmail();
+			intake.seassignedkey = user.getUserkey();
+		}
 		intake.sedeliverable = intakeForm.sedeliverable;
 		intake.setargetdate = intakeForm.setargetdate;
 		intake.datecreated = new Date();
@@ -1549,7 +1548,7 @@ public class Application extends Controller {
 			m.printStackTrace();
 		}
 
-		return ok(intakecreated.render());
+		return ok(intakecreated.render(intake.intakekey));
 	}
 
 	public Result saveLookup() {
@@ -1591,6 +1590,7 @@ public class Application extends Controller {
 		return ok(searchintake.render(intakeList, lookups, users, user));
 	}
 
+	@SuppressWarnings("static-access")
 	public Result updateIntake(String intakekey) {
 		Form<IntakeAdd> intakeEntry = form(IntakeAdd.class).bindFromRequest();
 
@@ -1631,29 +1631,37 @@ public class Application extends Controller {
 		intake.bacompletiondate = intakeForm.bacompletiondate;
 		intake.secompletiondate = intakeForm.secompletiondate;
 		// BA Manager...
-		intake.bamanager = intakeForm.bamanager;
-		user = user.findByFullname(intake.bamanager);
-		intake.bamanageremail = user.getEmail();
-		intake.bamanagerkey = user.getUserkey();
+		if (intakeForm.bamanager != null) {
+			intake.bamanager = intakeForm.bamanager;
+			user = user.findByFullname(intake.bamanager);
+			intake.bamanageremail = user.getEmail();
+			intake.bamanagerkey = user.getUserkey();
+		}
 		intake.baassigneddate = intakeForm.baassigneddate;
 		// BA...
-		intake.baassigned = intakeForm.baassigned;
-		user = user.findByFullname(intake.baassigned);
-		intake.baassignedemail = user.getEmail();
-		intake.baassignedkey = user.getUserkey();
-		intake.badeliverable = intakeForm.badeliverable;
+		if (intakeForm.baassigned != null) {
+			intake.baassigned = intakeForm.baassigned;
+			user = user.findByFullname(intake.baassigned);
+			intake.baassignedemail = user.getEmail();
+			intake.baassignedkey = user.getUserkey();
+			intake.badeliverable = intakeForm.badeliverable;
+		}
 		intake.batargetdate = intakeForm.batargetdate;
 		// SE Manager...
-		intake.semanager = intakeForm.semanager;
-		user = user.findByFullname(intake.semanager);
-		intake.semanageremail = user.getEmail();
-		intake.semanagerkey = user.getUserkey();
+		if (intakeForm.semanager != null) {
+			intake.semanager = intakeForm.semanager;
+			user = user.findByFullname(intake.semanager);
+			intake.semanageremail = user.getEmail();
+			intake.semanagerkey = user.getUserkey();
+		}
 		intake.seassigneddate = intakeForm.seassigneddate;
 		// SE...
-		intake.seassigned = intakeForm.seassigned;
-		user = user.findByFullname(intake.seassigned);
-		intake.seassignedemail = user.getEmail();
-		intake.seassignedkey = user.getUserkey();
+		if (intakeForm.seassigned != null) {
+			intake.seassigned = intakeForm.seassigned;
+			user = user.findByFullname(intake.seassigned);
+			intake.seassignedemail = user.getEmail();
+			intake.seassignedkey = user.getUserkey();
+		}
 		intake.sedeliverable = intakeForm.sedeliverable;
 		intake.setargetdate = intakeForm.setargetdate;
 		intake.userkey = AccessMiddleware.getSessionUserKey();
@@ -1797,26 +1805,26 @@ public class Application extends Controller {
 
 			// I know we have the user, but let's make sure we get the correct
 			// user...
-			user.fullname = name;
-			user.rolename = rolename;
+			user.setFullname(name);
+			user.setRolename(rolename);
 			switch (rolename) {
 			case "BA":
-				user.role = RoleType.BA;
+				user.setRole(RoleType.BA);
 				break;
 			case "SE":
-				user.role = RoleType.SE;
+				user.setRole(RoleType.SE);
 				break;
 			case "BA Manager":
-				user.role = RoleType.BAMANAGER;
+				user.setRole(RoleType.BAMANAGER);
 				break;
 			case "SE Manager":
-				user.role = RoleType.SEMANAGER;
+				user.setRole(RoleType.SEMANAGER);
 				break;
 			case "Admin":
-				user.role = RoleType.ADMIN;
+				user.setRole(RoleType.ADMIN);
 				break;
 			default:
-				user.role = RoleType.UNDEFINED;
+				user.setRole(RoleType.UNDEFINED);
 				break;
 			}
 
