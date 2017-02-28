@@ -227,7 +227,7 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span></span>BA Assigned:</label>
+										<label class="title"><span></span>BA Assigned (Primary):</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
@@ -269,6 +269,26 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
+										<label class="title"><span></span>BA Assigned:</label>
+										<div class="item-cont">
+											<div class="large">
+												<span>
+													<select name="baassigned1">
+														<option selected="selected" value="" disabled="disabled">--- Select BA ---</option>
+														@for(user <- users) {
+															@if(user.rolename == "BA") {
+																<option value="@user.fullname">@user.fullname</option>
+															}
+														}	
+													</select>
+													<i></i><span class="icon-place"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="element-select">
 										<label class="title"><span></span>BA Task Status:</label>
 										<div class="item-cont">
 											<div class="large">
@@ -278,6 +298,28 @@
 														@for(lookup <- lookups) {
 															@if(lookup.lookuptype == "BA Task Status") {
 																<option value="@lookup.name">@lookup.name</option>
+															}
+														}	
+													</select>
+													<i></i><span class="icon-place"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="padding-bottom: 10px;">
+								<div class="col-sm-6">
+									<div class="element-select">
+										<label class="title"><span></span>BA Assigned:</label>
+										<div class="item-cont">
+											<div class="large">
+												<span>
+													<select name="baassigned2">
+														<option selected="selected" value="" disabled="disabled">--- Select BA ---</option>
+														@for(user <- users) {
+															@if(user.rolename == "BA") {
+																<option value="@user.fullname">@user.fullname</option>
 															}
 														}	
 													</select>
@@ -373,7 +415,7 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
-										<label class="title"><span></span>SE Assigned:</label>
+										<label class="title"><span></span>SE Assigned (Primary):</label>
 										<div class="item-cont">
 											<div class="large">
 												<span>
@@ -415,6 +457,26 @@
 							<div class="row" style="padding-bottom: 10px;">
 								<div class="col-sm-6">
 									<div class="element-select">
+										<label class="title"><span></span>SE Assigned:</label>
+										<div class="item-cont">
+											<div class="large">
+												<span>
+													<select name="seassigned1">
+														<option selected="selected" value="" disabled="disabled">--- Select SE ---</option>
+														@for(user <- users) {
+															@if(user.rolename == "SE") {
+																<option value="@user.fullname">@user.fullname</option>
+															}
+														}	
+													</select>
+													<i></i><span class="icon-place"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="element-select">
 										<label class="title"><span></span>SE Task Status:</label>
 										<div class="item-cont">
 											<div class="large">
@@ -426,6 +488,28 @@
 																<option value="@lookup.name">@lookup.name</option>
 															}
 														}
+													</select>
+													<i></i><span class="icon-place"></span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="padding-bottom: 10px;">
+								<div class="col-sm-6">
+									<div class="element-select">
+										<label class="title"><span></span>SE Assigned:</label>
+										<div class="item-cont">
+											<div class="large">
+												<span>
+													<select name="seassigned2">
+														<option selected="selected" value="" disabled="disabled">--- Select SE ---</option>
+														@for(user <- users) {
+															@if(user.rolename == "SE") {
+																<option value="@user.fullname">@user.fullname</option>
+															}
+														}	
 													</select>
 													<i></i><span class="icon-place"></span>
 												</span>

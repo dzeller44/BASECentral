@@ -53,7 +53,8 @@ public class Signup extends Controller {
 	 * @return create form
 	 */
 	public Result create() {
-		return ok(create.render(form(Application.Register.class)));
+		List<Lookup> lookups = Lookup.find.all();
+		return ok(create.render(form(Application.Register.class), lookups));
 	}
 
 	/**
@@ -72,7 +73,8 @@ public class Signup extends Controller {
 	 * @return create form
 	 */
 	public Result createFormOnly() {
-		return ok(create.render(form(Application.Register.class)));
+		List<Lookup> lookups = Lookup.find.all();
+		return ok(create.render(form(Application.Register.class), lookups));
 		// return ok(create.render());
 	}
 
@@ -81,17 +83,15 @@ public class Signup extends Controller {
 	 *
 	 * @return Successfull page or created form if bad
 	 */
-	public Result save() {
+	public Result save() throws EmailException {
 		Form<Application.Register> registerForm = form(Application.Register.class).bindFromRequest();
-
-		if (registerForm.hasErrors()) {
-			return badRequest(create.render(registerForm));
-			// return badRequest(create.render());
+		List<Lookup> lookups = Lookup.find.all();
+		if (registerForm.hasErrors()) {			
+			return badRequest(create.render(registerForm, lookups));
 		}
 
 		Application.Register register = registerForm.get();
 		Result resultError = checkBeforeSave(registerForm, register.email);
-
 		if (resultError != null) {
 			return resultError;
 		}
@@ -106,8 +106,8 @@ public class Signup extends Controller {
 			user.dateCreation = new Date();
 			user.active = "Y";
 			// Custom fields...
-			String role = register.role;
-			switch (role) {
+			String rolename = register.rolename;
+			switch (rolename) {
 			case "BA":
 				user.role = RoleType.BA;
 				break;
@@ -134,8 +134,6 @@ public class Signup extends Controller {
 			cal = Calendar.getInstance();
 			cal.add(Calendar.MONTH, 6);
 			result = cal.getTime();
-			// DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-			// String dateOnly = dateFormat.format(result);
 			user.dateRemind = result;
 			// Password...
 			cal = Calendar.getInstance();
@@ -143,24 +141,9 @@ public class Signup extends Controller {
 			result = cal.getTime();
 			user.datePasswordRemind = result;
 			user.save();
+			sendMailAskForConfirmation(user);
+			return ok(created.render());
 
-			// if user.role is "manager" set approved to "N"
-			if (role.compareTo("manager") == 0) {
-				// RoleType.MANAGER == 2
-				user.approved = "N";
-				user.save();
-
-				// Replace with admin email, either shared inbox or database
-				// lookup
-				String admin = Messages.get("mail.admin.address");
-
-				sendMailAdminConfirm(admin, user.getEmail());
-
-				return ok(approval.render());
-			} else {
-				sendMailAskForConfirmation(user);
-				return ok(created.render());
-			}
 		} catch (EmailException e) {
 			Logger.debug("Signup.save Cannot send email", e);
 			flash("error", Messages.get("error.sending.email"));
@@ -168,11 +151,10 @@ public class Signup extends Controller {
 			Logger.error("Signup.save error", e);
 			flash("error", Messages.get("error.technical"));
 		}
-		return badRequest(create.render(registerForm));
-		// return badRequest(create.render());
+		return badRequest(create.render(registerForm, lookups));
 	}
 
-	public Result saveUser() throws EmailException {
+	public Result saveUser() {
 		Form<Application.RegisterUser> registerUserForm = form(Application.RegisterUser.class).bindFromRequest();
 		List<Lookup> lookups = Lookup.find.all();
 		if (registerUserForm.hasErrors()) {
@@ -223,8 +205,6 @@ public class Signup extends Controller {
 			cal = Calendar.getInstance();
 			cal.add(Calendar.MONTH, 6);
 			result = cal.getTime();
-			// DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-			// String dateOnly = dateFormat.format(result);
 			user.dateRemind = result;
 			// Password...
 			cal = Calendar.getInstance();
@@ -233,7 +213,7 @@ public class Signup extends Controller {
 			user.datePasswordRemind = result;
 			user.save();
 
-			// Send reset password email?
+			// Send password email...
 			Token t = new Token();
 			t.sendNewUserMail(user, mailerClient);
 			return ok(createduser.render());
@@ -259,8 +239,8 @@ public class Signup extends Controller {
 		// Check unique email
 		if (User.findByEmail(email) != null) {
 			flash("error", Messages.get("error.email.already.exist"));
-			return badRequest(create.render(registerForm));
-			// return badRequest(create.render());
+			List<Lookup> lookups = Lookup.find.all();
+			return badRequest(create.render(registerForm, lookups));
 		}
 
 		return null;

@@ -1,9 +1,11 @@
-[0m[[0minfo[0m] [0mPackaging C:\WebDev\workspace\BASECentral\target\scala-2.10\base-central_2.10-1.0-SNAPSHOT-web-assets.jar ...[0m
+[0m[[0minfo[0m] [0mPackaging C:\WebDev\workspace\BASECentral\target\scala-2.11\base-central_2.11-1.0-SNAPSHOT-web-assets.jar ...[0m
 [0m[[0mdebug[0m] [0mInput file mappings:[0m
 [0m[[0mdebug[0m] [0m	public/css\formoid[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\css\formoid[0m
 [0m[[0mdebug[0m] [0m	public/partials\register.html[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\partials\register.html[0m
+[0m[[0mdebug[0m] [0m	public/img\providers\facebook.png[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\providers\facebook.png[0m
 [0m[[0mdebug[0m] [0m	public/fonts\FontAwesome.otf[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\fonts\FontAwesome.otf[0m
 [0m[[0mdebug[0m] [0m	public/js\form.js[0m
@@ -78,6 +80,8 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\lib\angularjs[0m
 [0m[[0mdebug[0m] [0m	public/js\jquery\jquery.tablesorter.js[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\js\jquery\jquery.tablesorter.js[0m
+[0m[[0mdebug[0m] [0m	public/img\providers[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\providers[0m
 [0m[[0mdebug[0m] [0m	public/img\team\8.jpg[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\team\8.jpg[0m
 [0m[[0mdebug[0m] [0m	public/js\jquery\jquery.min.js[0m
@@ -202,6 +206,8 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\tablesort[0m
 [0m[[0mdebug[0m] [0m	public/partials[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\partials[0m
+[0m[[0mdebug[0m] [0m	public/img\providers\twitter.png[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\providers\twitter.png[0m
 [0m[[0mdebug[0m] [0m	public/js\superfish.min.js[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\js\superfish.min.js[0m
 [0m[[0mdebug[0m] [0m	public/img\works\6.jpg[0m
@@ -312,6 +318,8 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\slider\caption_img1.png[0m
 [0m[[0mdebug[0m] [0m	public/css\font-awesome.css[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\css\font-awesome.css[0m
+[0m[[0mdebug[0m] [0m	public/img\providers\linkedin.png[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\providers\linkedin.png[0m
 [0m[[0mdebug[0m] [0m	public/img\i3.png[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\i3.png[0m
 [0m[[0mdebug[0m] [0m	public/img\works\5_2.jpg[0m
@@ -326,6 +334,8 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\co\CO_OIT_Logo_80px.png[0m
 [0m[[0mdebug[0m] [0m	public/img\blog\1.jpg[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\blog\1.jpg[0m
+[0m[[0mdebug[0m] [0m	public/img\co\OIT _300_Color.png[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\co\OIT _300_Color.png[0m
 [0m[[0mdebug[0m] [0m	public/css\owl.carousel.css[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\css\owl.carousel.css[0m
 [0m[[0mdebug[0m] [0m	public/css\formoid\icons.eot[0m
@@ -358,6 +368,8 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\works\2.jpg[0m
 [0m[[0mdebug[0m] [0m	public/css\formoid\icons.svg[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\css\formoid\icons.svg[0m
+[0m[[0mdebug[0m] [0m	public/img\providers\google.png[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\providers\google.png[0m
 [0m[[0mdebug[0m] [0m	public/img\icon_Search.png[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\public\img\icon_Search.png[0m
 [0m[[0mdebug[0m] [0m	public/css\tablesort.css[0m

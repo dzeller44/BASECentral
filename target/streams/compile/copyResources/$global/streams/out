@@ -1,10 +1,10 @@
 [0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\application.conf,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\application.conf)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\cloudbees.conf,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\cloudbees.conf)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\evolutions,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\evolutions)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\mail.conf.example,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\mail.conf.example)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\messages.en,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\messages.en)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\play.plugins,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\play.plugins)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\routes,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\routes)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\evolutions\default,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\evolutions\default)[0m
-[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\evolutions\default\1.sql,C:\WebDev\workspace\BASECentral\target\scala-2.10\classes\evolutions\default\1.sql)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\application.conf,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\application.conf)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\cloudbees.conf,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\cloudbees.conf)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\evolutions,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\evolutions)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\messages.en,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\messages.en)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\play.plugins,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\play.plugins)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\routes,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\routes)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\securesocial.conf,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\securesocial.conf)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\evolutions\default,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\evolutions\default)[0m
+[0m[[0mdebug[0m] [0m	(C:\WebDev\workspace\BASECentral\conf\evolutions\default\1.sql,C:\WebDev\workspace\BASECentral\target\scala-2.11\classes\evolutions\default\1.sql)[0m

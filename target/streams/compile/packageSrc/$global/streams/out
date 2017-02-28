@@ -1,4 +1,4 @@
-[0m[[0minfo[0m] [0mPackaging C:\WebDev\workspace\BASECentral\target\scala-2.10\base-central_2.10-1.0-SNAPSHOT-sources.jar ...[0m
+[0m[[0minfo[0m] [0mPackaging C:\WebDev\workspace\BASECentral\target\scala-2.11\base-central_2.11-1.0-SNAPSHOT-sources.jar ...[0m
 [0m[[0mdebug[0m] [0mInput file mappings:[0m
 [0m[[0mdebug[0m] [0m	controllers\account\Reset.java[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\app\controllers\account\Reset.java[0m
@@ -68,6 +68,8 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\app\managers\SessionData.java[0m
 [0m[[0mdebug[0m] [0m	models\AuditLog.java[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\app\models\AuditLog.java[0m
+[0m[[0mdebug[0m] [0m	securesocial.conf[0m
+[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\conf\securesocial.conf[0m
 [0m[[0mdebug[0m] [0m	models\IntakeEdit.java[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\app\models\IntakeEdit.java[0m
 [0m[[0mdebug[0m] [0m	controllers\account\settings\Email.java[0m
@@ -90,6 +92,4 @@
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\app\utils\DateUtils.java[0m
 [0m[[0mdebug[0m] [0m	models\utils\Mail.java[0m
 [0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\app\models\utils\Mail.java[0m
-[0m[[0mdebug[0m] [0m	mail.conf.example[0m
-[0m[[0mdebug[0m] [0m	  C:\WebDev\workspace\BASECentral\conf\mail.conf.example[0m
 [0m[[0minfo[0m] [0mDone packaging.[0m

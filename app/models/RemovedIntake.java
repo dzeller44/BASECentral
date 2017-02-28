@@ -31,7 +31,7 @@ public class RemovedIntake extends Model {
 	public String projectname;
 
 	@Constraints.Required
-	@Constraints.MaxLength(2500)
+	@Constraints.MaxLength(10000)
 	public String summary;
 	
 	@Constraints.Required
@@ -81,6 +81,18 @@ public class RemovedIntake extends Model {
 
 	@Constraints.Required
 	public String baassignedkey;
+	
+	public String baassigned1;
+
+	public String baassignedemail1;
+
+	public String baassignedkey1;
+	
+	public String baassigned2;
+
+	public String baassignedemail2;
+
+	public String baassignedkey2;
 
 	@Constraints.Required
 	public String badeliverable;
@@ -120,6 +132,18 @@ public class RemovedIntake extends Model {
 
 	@Constraints.Required
 	public String seassignedkey;
+	
+	public String seassigned1;
+
+	public String seassignedemail1;
+	
+	public String seassignedkey1;
+	
+	public String seassigned2;
+
+	public String seassignedemail2;
+	
+	public String seassignedkey2;
 
 	@Constraints.Required
 	public String sedeliverable;

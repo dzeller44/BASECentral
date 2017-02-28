@@ -6,7 +6,7 @@
 GET    /                           controllers.Application.index()
 GET    /dashboard                  controllers.Dashboard.index()
 
-POST   /login                      controllers.Application.authenticate()
+#POST   /login                      controllers.Application.authenticate()
 GET    /logout                     controllers.Application.logout()
 
 GET    /contact                    controllers.Application.contact()
@@ -15,6 +15,9 @@ POST   /contact                    controllers.Application.contactSend()
 # Authenticates/Logins the user...
 GET    /auth                       controllers.Application.openLogin()
 POST   /auth                       controllers.Application.authenticate()
+
+#GET    /authenticate/:provider     securesocial.controllers.ProviderController.authenticate(provider)
+#POST   /authenticate/:provider     securesocial.controllers.ProviderController.authenticateByPost(provider)
 
 GET    /accessdenied               controllers.Application.accessDenied()
 
@@ -38,7 +41,7 @@ POST   /openintake/:intakekey      controllers.Application.updateIntake(intakeke
 GET    /deleteintake/:intakekey    controllers.Application.deleteIntakeConfirm(intakekey: String)
 POST   /deleteintake/:intakekey    controllers.Application.deleteIntake(intakekey: String)
 
-GET    /exportintake/:data         controllers.Application.exportIntake(data: String)
+GET    /exportintake               controllers.Application.exportIntake(type: String, value: String)
 
 GET    /useraccount                controllers.Application.openUserAccount(email: String)
 POST   /useraccount                controllers.Application.updateUserAccount()

@@ -7,19 +7,26 @@ import java.io.FileWriter;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Calendar;
 import javax.inject.Inject;
 import javax.persistence.Id;
+import java.io.UnsupportedEncodingException;
 
 import java.lang.reflect.Field;
 
 import org.apache.commons.mail.EmailException;
+
 import com.opencsv.CSVWriter;
 
 import controllers.Application.FindUser;
@@ -48,7 +55,9 @@ import play.data.validation.ValidationError;
 import play.i18n.Messages;
 import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.With;
 import utils.ScheduleEmail;
 import views.html.index;
 import views.html.auth;
@@ -126,7 +135,7 @@ public class Application extends Controller {
 		public String message;
 
 	}
-
+	
 	public static class FindUser {
 
 		public String approved;
@@ -190,6 +199,18 @@ public class Application extends Controller {
 
 		public String baassignedkey;
 
+		public String baassigned1;
+
+		public String baassignedemail1;
+
+		public String baassignedkey1;
+
+		public String baassigned2;
+
+		public String baassignedemail2;
+
+		public String baassignedkey2;
+
 		public String badeliverable;
 
 		public String bataskstatus;
@@ -213,6 +234,18 @@ public class Application extends Controller {
 		public String seassignedemail;
 
 		public String seassignedkey;
+
+		public String seassigned1;
+
+		public String seassignedemail1;
+
+		public String seassignedkey1;
+
+		public String seassigned2;
+
+		public String seassignedemail2;
+
+		public String seassignedkey2;
 
 		public String sedeliverable;
 
@@ -330,7 +363,7 @@ public class Application extends Controller {
 
 		// Custom fields...
 		@Constraints.Required
-		public String role;
+		public String rolename;
 
 		private boolean isBlank(String input) {
 			return input == null || input.isEmpty() || input.trim().isEmpty();
@@ -362,7 +395,7 @@ public class Application extends Controller {
 				}
 			}
 
-			if (isBlank(role)) {
+			if (isBlank(rolename)) {
 				return "Account Role is required";
 			}
 
@@ -737,9 +770,14 @@ public class Application extends Controller {
 			List<User> users = null;
 			String userRole = "";
 			String fileName = "";
-			// Download file to "Downloads" folder
-			String home = System.getProperty("user.home");
-			String fileLocation = home + "\\Downloads\\";
+			String fullFileName = "";
+			String fullFilePath = "";
+			// Download file to temp folder
+			String fileLocation = System.getProperty("java.io.tmpdir");
+			String osName = System.getProperty("os.name");
+			if (osName.equals("Linux")) {
+				fileLocation = fileLocation + "/";
+			}
 			RoleType role = AccessMiddleware.getSessionRole();
 			if (role != null) {
 				userRole = role.getRoleTextName(role);
@@ -761,8 +799,9 @@ public class Application extends Controller {
 				}
 
 				String fileDate = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
-				fileName = fileLocation + fileName + "_" + fileDate + ".csv";
-				CSVWriter usersWriter = new CSVWriter(new FileWriter(fileName));
+				fullFileName = fileName + "_" + fileDate + ".csv";
+				fullFilePath = fileLocation + fullFileName;
+				CSVWriter usersWriter = new CSVWriter(new FileWriter(fullFilePath));
 				List<String[]> usersArr = new ArrayList<String[]>();
 				usersArr.add(new String[] { "ID", "Email", "Role" });
 
@@ -777,11 +816,11 @@ public class Application extends Controller {
 				ex.printStackTrace();
 			}
 
-			return ok(exportready.render(fileName, userRole));
+			return ok(exportready.render(fullFilePath, fullFileName, userRole));
 		}
 	}
 
-	public Result exportIntake(String whatData) {
+	public Result exportIntake(String type, String value) {
 		// Check Role...
 		if (hasCorrectAccess(RoleType.BAMANAGER) != true && hasCorrectAccess(RoleType.SEMANAGER) != true
 				&& hasCorrectAccess(RoleType.ADMIN) != true) {
@@ -790,9 +829,14 @@ public class Application extends Controller {
 			List<Intake> intakeList = null;
 			String userRole = "";
 			String fileName = "";
-			// Download file to "Downloads" folder
-			String home = System.getProperty("user.home");
-			String fileLocation = home + "\\Downloads\\";
+			String fullFileName = "";
+			String fullFilePath = "";
+			// Download file to temp folder
+			String fileLocation = System.getProperty("java.io.tmpdir");
+			String osName = System.getProperty("os.name");
+			if (osName.equals("Linux")) {
+				fileLocation = fileLocation + "/";
+			}
 			RoleType role = AccessMiddleware.getSessionRole();
 			if (role != null) {
 				userRole = role.getRoleTextName(role);
@@ -802,39 +846,97 @@ public class Application extends Controller {
 			}
 
 			try {
-				switch (whatData) {
-				default:
+				// Is a filter being used?	
+				if (type.equals("All")) {
 					intakeList = Intake.find.all();
 					fileName = "all_projects";
-					break;
+				} else {
+					// Get the correct filtered list...
+					intakeList = filterGetIntakeRecords(type, value);
+					fileName = type + "_" + value;
 				}
-
 				String fileDate = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss").format(new Date());
-				fileName = fileLocation + fileName + "_" + fileDate + ".csv";
-				CSVWriter usersWriter = new CSVWriter(new FileWriter(fileName));
+				fullFileName = fileName + "_" + fileDate + ".csv";
+				fullFilePath = fileLocation + fullFileName;
+				CSVWriter usersWriter = new CSVWriter(new FileWriter(fullFilePath));
 				List<String[]> dataArray = new ArrayList<String[]>();
 				dataArray.add(new String[] { "Project ID", "Project Name", "Project Summary", "Project Status",
 						"Agency", "Requestor", "Date Requested", "How Requested", "Initial Meeting Date",
 						"Initial Meeting Comments", "Request Status", "BA Manager", "BA Manager Email",
-						"BA Assigned Date", "BA Assigned", "BA Assigned Email", "BA Deliverable", "BA Task Status",
-						"BA Time Estimate", "BA Target Date", "BA Completion Date", "SE Manager", "SE Manager Email",
-						"SE Assigned Date", "SE Assigned", "SE Assigned Email", "SE Deliverable", "SE Task Status",
-						"SE Time Estimate", "SE Target Date", "SE Completion Date", "Date Created"
-
-				});
+						"BA Assigned Date", "BA Assigned", "BA Assigned Email", "BA Assigned 1", "BA Assigned Email 1",
+						"BA Assigned 2", "BA Assigned Email 2", "BA Deliverable", "BA Task Status", "BA Time Estimate",
+						"BA Target Date", "BA Completion Date", "SE Manager", "SE Manager Email", "SE Assigned Date",
+						"SE Assigned", "SE Assigned Email", "SE Assigned 1", "SE Assigned Email 1", "SE Assigned 2",
+						"SE Assigned Email 2", "SE Deliverable", "SE Task Status", "SE Time Estimate", "SE Target Date",
+						"SE Completion Date", "Date Created" });
 
 				for (Intake intake : intakeList) {
+					// Need to make sure values are not null...
+					String date1 = "";
+					String date2 = "";
+					String date3 = "";
+					String date4 = "";
+					String date5 = "";
+					String date6 = "";
+					String date7 = "";
+					String date8 = "";
+					String date9 = "";
+					String date10 = "";
+					String date11 = "";
+
+					if (intake.daterequested != null) {
+						date1 = intake.daterequested.toString();
+					}
+
+					if (intake.initialmeetdate != null) {
+						date2 = intake.initialmeetdate.toString();
+					}
+
+					if (intake.baassigneddate != null) {
+						date3 = intake.baassigneddate.toString();
+					}
+
+					if (intake.batimeestimate != null) {
+						date4 = intake.batimeestimate.toString();
+					}
+
+					if (intake.batargetdate != null) {
+						date5 = intake.batargetdate.toString();
+					}
+
+					if (intake.bacompletiondate != null) {
+						date6 = intake.bacompletiondate.toString();
+					}
+
+					if (intake.seassigneddate != null) {
+						date7 = intake.seassigneddate.toString();
+					}
+
+					if (intake.setimeestimate != null) {
+						date8 = intake.setimeestimate.toString();
+					}
+
+					if (intake.setargetdate != null) {
+						date9 = intake.setargetdate.toString();
+					}
+
+					if (intake.secompletiondate != null) {
+						date10 = intake.secompletiondate.toString();
+					}
+
+					if (intake.datecreated != null) {
+						date11 = intake.datecreated.toString();
+					}
+
 					dataArray.add(new String[] { intake.projectid, intake.projectname, intake.summary,
-							intake.projectstatus, intake.agency, intake.requestor, intake.daterequested.toString(),
-							intake.howrequested, intake.initialmeetdate.toString(), intake.initialmeetcomments,
-							intake.requeststatus, intake.bamanager, intake.bamanageremail,
-							intake.baassigneddate.toString(), intake.baassigned, intake.baassignedemail,
-							intake.badeliverable, intake.bataskstatus, intake.batimeestimate.toString(),
-							intake.batargetdate.toString(), intake.bacompletiondate.toString(), intake.semanager,
-							intake.semanageremail, intake.seassigneddate.toString(), intake.seassigned,
-							intake.seassignedemail, intake.sedeliverable, intake.setaskstatus,
-							intake.setimeestimate.toString(), intake.setargetdate.toString(),
-							intake.secompletiondate.toString(), intake.datecreated.toString() });
+							intake.projectstatus, intake.agency, intake.requestor, date1, intake.howrequested, date2,
+							intake.initialmeetcomments, intake.requeststatus, intake.bamanager, intake.bamanageremail,
+							date3, intake.baassigned, intake.baassignedemail, intake.baassigned1,
+							intake.baassignedemail1, intake.baassigned2, intake.baassignedemail2, intake.badeliverable,
+							intake.bataskstatus, date4, date5, date6, intake.semanager, intake.semanageremail, date7,
+							intake.seassigned, intake.seassignedemail, intake.seassigned1, intake.seassignedemail1,
+							intake.seassigned2, intake.seassignedemail2, intake.sedeliverable, intake.setaskstatus,
+							date8, date9, date10, date11 });
 				}
 
 				usersWriter.writeAll(dataArray);
@@ -843,7 +945,9 @@ public class Application extends Controller {
 				ex.printStackTrace();
 			}
 
-			return ok(exportready.render(fileName, userRole));
+			// return ok(exportready.render(fullFilePath, fullFileName,
+			// userRole));
+			return ok(new java.io.File(fullFilePath));
 		}
 	}
 
@@ -890,6 +994,35 @@ public class Application extends Controller {
 	public Result filterIntake(String type, String value) {
 		// Grab the current user's userkey and role...
 		String userkey = AccessMiddleware.getSessionUserKey();
+		List<Intake> intakeList = filterGetIntakeRecords(type, value);
+		List<Lookup> lookups = Lookup.find.all();
+		List<User> users = User.find.all();
+		User user = User.findByUserKey(userkey);
+		return ok(searchintake.render(intakeList, lookups, users, user));
+	}
+
+	public Result filterLookups(String type, String value) {
+		// Grab the current user's userkey and role...
+		List<Lookup> lookupList = null;
+		if (value.equals("All")) {
+			lookupList = Lookup.find.all();
+		} else {
+			// Get type...
+			switch (type) {
+			case "type":
+				lookupList = Lookup.filterByType(value);
+				break;
+
+			default:
+				break;
+			}
+		}
+		return ok(lookups.render(lookupList));
+	}
+
+	public List<Intake> filterGetIntakeRecords(String type, String value) {
+		// Grab the current user's userkey and role...
+		String userkey = AccessMiddleware.getSessionUserKey();
 		RoleType role = AccessMiddleware.getSessionRole();
 		List<Intake> intakeList = null;
 		if (value.equals("All")) {
@@ -917,29 +1050,7 @@ public class Application extends Controller {
 				break;
 			}
 		}
-		List<Lookup> lookups = Lookup.find.all();
-		List<User> users = User.find.all();
-		User user = User.findByUserKey(userkey);
-		return ok(searchintake.render(intakeList, lookups, users, user));
-	}
-
-	public Result filterLookups(String type, String value) {
-		// Grab the current user's userkey and role...
-		List<Lookup> lookupList = null;
-		if (value.equals("All")) {
-			lookupList = Lookup.find.all();
-		} else {
-			// Get type...
-			switch (type) {
-			case "type":
-				lookupList = Lookup.filterByType(value);
-				break;
-
-			default:
-				break;
-			}
-		}
-		return ok(lookups.render(lookupList));
+		return intakeList;
 	}
 
 	public Result findUser() {
@@ -1025,6 +1136,33 @@ public class Application extends Controller {
 		List<User> users = User.find.all();
 		User user = User.findByUserKey(userkey);
 		return ok(searchintake.render(intakeList, lookups, users, user));
+	}
+
+	public static Map<String, List<String>> getQueryParams(String url) {
+		try {
+			Map<String, List<String>> params = new HashMap<String, List<String>>();
+			String[] urlParts = url.split("\\?");
+			if (urlParts.length > 1) {
+				String query = urlParts[1];
+				for (String param : query.split("&")) {
+					String[] pair = param.split("=");
+					String key = URLDecoder.decode(pair[0], "UTF-8");
+					String value = "";
+					if (pair.length > 1) {
+						value = URLDecoder.decode(pair[1], "UTF-8");
+					}
+					List<String> values = params.get(key);
+					if (values == null) {
+						values = new ArrayList<String>();
+						params.put(key, values);
+					}
+					values.add(value);
+				}
+			}
+			return params;
+		} catch (UnsupportedEncodingException ex) {
+			throw new AssertionError(ex);
+		}
 	}
 
 	public Result getUserByEmail() {
@@ -1237,7 +1375,11 @@ public class Application extends Controller {
 		emailArray.add(intake.bamanageremail);
 		emailArray.add(intake.semanageremail);
 		emailArray.add(intake.baassignedemail);
+		emailArray.add(intake.baassignedemail1);
+		emailArray.add(intake.baassignedemail2);
 		emailArray.add(intake.seassignedemail);
+		emailArray.add(intake.seassignedemail1);
+		emailArray.add(intake.seassignedemail2);
 
 		// Let's make sure we have some addresses to send to...
 		if (isArrayEmpty(emailArray) != true) {
@@ -1490,14 +1632,28 @@ public class Application extends Controller {
 			intake.bamanagerkey = user.getUserkey();
 		}
 		intake.baassigneddate = intakeForm.baassigneddate;
-		// BA...
+		// BA Primary...
 		if (intakeForm.baassigned != null) {
 			intake.baassigned = intakeForm.baassigned;
 			user = user.findByFullname(intake.baassigned);
 			intake.baassignedemail = user.getEmail();
 			intake.baassignedkey = user.getUserkey();
-			intake.badeliverable = intakeForm.badeliverable;
 		}
+		// BA 1...
+		if (intakeForm.baassigned1 != null) {
+			intake.baassigned1 = intakeForm.baassigned1;
+			user = user.findByFullname(intake.baassigned1);
+			intake.baassignedemail1 = user.getEmail();
+			intake.baassignedkey1 = user.getUserkey();
+		}
+		// BA 2...
+		if (intakeForm.baassigned2 != null) {
+			intake.baassigned2 = intakeForm.baassigned2;
+			user = user.findByFullname(intake.baassigned2);
+			intake.baassignedemail2 = user.getEmail();
+			intake.baassignedkey2 = user.getUserkey();
+		}
+		intake.badeliverable = intakeForm.badeliverable;
 		intake.batargetdate = intakeForm.batargetdate;
 		// SE Manager...
 		if (intakeForm.semanager != null) {
@@ -1507,12 +1663,26 @@ public class Application extends Controller {
 			intake.semanagerkey = user.getUserkey();
 		}
 		intake.seassigneddate = intakeForm.seassigneddate;
-		// SE...
+		// SE Primary...
 		if (intakeForm.seassigned != null) {
 			intake.seassigned = intakeForm.seassigned;
 			user = user.findByFullname(intake.seassigned);
 			intake.seassignedemail = user.getEmail();
 			intake.seassignedkey = user.getUserkey();
+		}
+		// SE 1...
+		if (intakeForm.seassigned1 != null) {
+			intake.seassigned1 = intakeForm.seassigned1;
+			user = user.findByFullname(intake.seassigned1);
+			intake.seassignedemail1 = user.getEmail();
+			intake.seassignedkey1 = user.getUserkey();
+		}
+		// SE 2...
+		if (intakeForm.seassigned2 != null) {
+			intake.seassigned2 = intakeForm.seassigned2;
+			user = user.findByFullname(intake.seassigned2);
+			intake.seassignedemail2 = user.getEmail();
+			intake.seassignedkey2 = user.getUserkey();
 		}
 		intake.sedeliverable = intakeForm.sedeliverable;
 		intake.setargetdate = intakeForm.setargetdate;
@@ -2141,5 +2311,4 @@ public class Application extends Controller {
 		}
 		return newList;
 	}
-
 }

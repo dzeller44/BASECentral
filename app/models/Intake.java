@@ -32,7 +32,7 @@ public class Intake extends Model {
 
 	public String projectname;
 
-	@Constraints.MaxLength(2500)
+	@Constraints.MaxLength(10000)
 	public String summary;
 
 	public String projectstatus;
@@ -67,6 +67,18 @@ public class Intake extends Model {
 	public String baassignedemail;
 
 	public String baassignedkey;
+	
+	public String baassigned1;
+
+	public String baassignedemail1;
+
+	public String baassignedkey1;
+	
+	public String baassigned2;
+
+	public String baassignedemail2;
+
+	public String baassignedkey2;
 
 	public String badeliverable;
 
@@ -92,8 +104,20 @@ public class Intake extends Model {
 	public String seassigned;
 
 	public String seassignedemail;
-
+	
 	public String seassignedkey;
+	
+	public String seassigned1;
+
+	public String seassignedemail1;
+	
+	public String seassignedkey1;
+	
+	public String seassigned2;
+
+	public String seassignedemail2;
+	
+	public String seassignedkey2;
 
 	public String sedeliverable;
 

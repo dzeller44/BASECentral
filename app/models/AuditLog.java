@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import com.avaje.ebean.*;
 
 import models.enums.RoleType;
+import play.data.validation.Constraints;
 import play.mvc.Http;
 
 /**
@@ -42,18 +43,20 @@ public class AuditLog {
 	@Column(name = "screen")
 	private String screen;
 
+	@Constraints.MaxLength(2500)
 	@Column(name = "field")
 	private String field;
 
+	@Constraints.MaxLength(2500)
 	@Column(name = "value")
 	private String value;
 
 	@Column(name = "ip")
 	private String ip;
-	
+
 	@Column(name = "path")
 	private String path;
-	
+
 	@Column(name = "host")
 	private String host;
 
@@ -243,7 +246,8 @@ public class AuditLog {
 	 * @param value
 	 * @param ip
 	 */
-	public static void setLog(String userId, String email, String context, String screen, String field, String value, String ip, String path, String host) {
+	public static void setLog(String userId, String email, String context, String screen, String field, String value,
+			String ip, String path, String host) {
 		RoleType role = null;
 
 		if (role == null) {
@@ -258,10 +262,9 @@ public class AuditLog {
 		log.setUserId(userId);
 		if (role != null) {
 			log.setRole(role.toString());
-		}
-		else {
+		} else {
 			log.setRole("N/A");
-		}		
+		}
 		log.setEmail(email);
 		log.setContext(context);
 		log.setScreen(screen);
@@ -272,6 +275,5 @@ public class AuditLog {
 		log.setPath(path);
 		log.setHost(host);
 		Ebean.save(log);
-
 	}
 }
